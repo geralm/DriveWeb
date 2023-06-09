@@ -9,12 +9,15 @@
 <body>
   <nav id="mainNavbar" class="navbar navbar-dark bg-dark nav-expand-md">
     <a href="#" class="navbar-brand">Drive web</a>
-  </nav>>
+  </nav>
+  {% if error %}
+    <div class="alert alert-danger" role="alert">{{error}}</div>
+  {% endif %}
   <div class="panel">
     <h2>Iniciar sesión</h2>
     <form action="" method="POST">
-      <input type="text" name="username" placeholder="username" required><br>
-      <input  class="btn btn-success" type="submit" value="Log in">
+      <input type="text" name="username" data-dismiss="alert"placeholder="username" required><br>
+      <input  class="btn btn-success"  type="submit" value="Log in">
       <input class="btn btn-primary" type="submit" value="Sign in">
     </form>
   </div>
