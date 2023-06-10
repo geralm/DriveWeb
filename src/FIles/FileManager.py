@@ -67,7 +67,20 @@ def createUser(username: str) -> dict:
         return {"error": "User not created due to file IO error"}
     except json.JSONDecodeError:
         return {"error": "User not created due to JSON decoding error"}
-print(createUser('Esteban'))
+def getUser(username: str) -> dict:
+    try:
+        with open(BD_PATH, 'r') as file:
+            data = json.load(file)
+            user_exists = any(user['username'] == username for user in data['users'])
+            if user_exists:
+                return next(user for user in data['users'] if user['username'] == username)
+            else:
+                return {"error": "User not found"}
+    except IOError:
+        return {"error": "User not found due to file IO error"}
+    except json.JSONDecodeError:
+        return {"error": "User not found due to JSON decoding error"}
+print(getUser('Esteban'))
 
 
     
