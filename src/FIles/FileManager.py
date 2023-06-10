@@ -1,6 +1,7 @@
 import json 
 import os
 from datetime import datetime
+BD_PATH = 'src/Files/bd.json'
 """
     {
     "users": [
@@ -40,7 +41,33 @@ def getFileProperties(path:str)->dict:
     else:
         file = {"error": "File not found"}
     return file
-print(getFileProperties("C:\\Users\\Esteb\\Documents\\ProyectoDriveTest\\prueba1.txt"))
+def createUser(username: str) -> dict:
+    try:
+        with open(BD_PATH, 'r') as file:
+            data = json.load(file)
+            user_exists = any(user['username'] == username for user in data['users'])
+            if user_exists:
+                return {"error": "Username already exists"}
+            else:
+                data['users'].append({
+                    "username": username,
+                    "root": {
+                        "personal": {
+                            "directories": [],
+                            "files": []
+                        },
+                        "drive": {}
+                    }
+                })
+        
+        with open(BD_PATH, 'w') as file:
+            json.dump(data, file, indent=4)
+        return {"status": "User created"}
+    except IOError:
+        return {"error": "User not created due to file IO error"}
+    except json.JSONDecodeError:
+        return {"error": "User not created due to JSON decoding error"}
+print(createUser('Esteban'))
 
 
     
