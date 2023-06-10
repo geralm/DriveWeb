@@ -80,7 +80,26 @@ def getUser(username: str) -> dict:
         return {"error": "User not found due to file IO error"}
     except json.JSONDecodeError:
         return {"error": "User not found due to JSON decoding error"}
-print(getUser('Esteban'))
+def updateUser(userData:dict):
+    try:
+        with open(BD_PATH, 'r') as file:
+            data = json.load(file)
+            user_exists = any(user['username'] == userData['username'] for user in data['users'])
+            if user_exists:
+                data['users'] = [user for user in data['users'] if user['username'] != userData['username']]
+                data['users'].append(userData)
+                with open(BD_PATH, 'w') as file:
+                    json.dump(data, file, indent=4)
+                return {"status": "User updated"}
+            else:
+                return {"error": "User not found"}
+    except IOError:
+        return {"error": "User not found due to file IO error"}
+    except json.JSONDecodeError:
+        return {"error": "User not found due to JSON decoding error"}
+user:dict = getUser('Esteban')
+user["root"]["personal"]["files"].append(getFileProperties(r"C:\Users\Esteb\Documents\ProyectoDriveTest\prueba1.txt"))
+print(updateUser(user))
 
 
     
