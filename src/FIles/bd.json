@@ -1,15 +1,24 @@
 {
     "users": [
         {
-            "username": "Esteban",
-            "root": {
-                "personal": {
-                    "directories": [],
-                    "files": [
-                    ]
+            "username": "prueba1",
+            "root": [
+                {
+                    "directory": {
+                        "name": "personal",
+                        "directories": [],
+                        "files": []
+                    }
                 },
-                "drive": {}
-            }
+                {
+                    "directory": {
+                        "name": "drive",
+                        "directories": [],
+                        "files": []
+                    }
+                }
+            ]
         }
+      
     ]
 }

@@ -51,13 +51,7 @@ def createUser(username: str) -> dict:
             else:
                 data['users'].append({
                     "username": username,
-                    "root": {
-                        "personal": {
-                            "directories": [],
-                            "files": []
-                        },
-                        "drive": {}
-                    }
+                    "root": [ createDirectory("personal"), createDirectory("drive")]
                 })
         
         with open(BD_PATH, 'w') as file:
@@ -97,9 +91,14 @@ def updateUser(userData:dict):
         return {"error": "User not found due to file IO error"}
     except json.JSONDecodeError:
         return {"error": "User not found due to JSON decoding error"}
-user:dict = getUser('Esteban')
-user["root"]["personal"]["files"].append(getFileProperties(r"C:\Users\Esteb\Documents\ProyectoDriveTest\prueba1.txt"))
-print(updateUser(user))
-
-
+def createDirectory(name:str)->dict:
+    return  {"directory": {
+                            "name": name,
+                            "directories": [],
+                            "files": []
+                        }}
+def addNewData(userData: dict, data: dict, path: str):
+  
+    return data
+print(addNewData(getUser("prueba1"), createDirectory("primerdirectorio"), "root/personal"))    
     
