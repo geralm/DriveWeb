@@ -98,7 +98,7 @@ def createDirectory(name:str)->dict:
                             "files": []
                         }}
 def addNewData(userData: dict, data: dict, path: str):
-  
+   #not finished
     return data
 print(addNewData(getUser("prueba1"), createDirectory("primerdirectorio"), "root/personal"))    
     
