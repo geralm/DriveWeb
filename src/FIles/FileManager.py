@@ -208,5 +208,5 @@ bd: FileManager = FileManager()
 # print(bd.getFileProperties(File["absolutePath"]))
 # print(bd.deleteFile(bd.getUser("test"), "personal/test1/test2/Filetest.txt"))
 
-print(bd.deleteDirectory(bd.getUser("prueba1"), "personal/"))
+
     
