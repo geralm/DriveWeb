@@ -199,8 +199,5 @@ bd: FileManager = FileManager()
 # print(bd.addDirectory(bd.getUser("test"), bd.createDirectory("test2"), "personal/test1"))
 # print(bd.addDirectory(bd.getUser("test"), bd.createDirectory("test3"), "personal/test1/test2")) # Error
 # print(bd.addFile(bd.getUser("test"), bd.createFile("Filetest.txt", r"c:\Users\Esteb\Documents\ProyectoDriveTest"), "personal/test1/test2"))
-File: dict = bd.searchFile(bd.getUser("test"), "personal/test1/test2/Filetest.txt")
-print(bd.getFileProperties(File["absolutePath"]))
-
 
     
