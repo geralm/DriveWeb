@@ -52,32 +52,7 @@
                                     {
                                         "name": "test2",
                                         "directories": [],
-                                        "files": [
-                                            {
-                                                "name": "Filetest",
-                                                "absolutePath": "c:\\Users\\Esteb\\Documents\\ProyectoDriveTest"
-                                            },
-                                            {
-                                                "name": "Filetest.txt",
-                                                "absolutePath": "c:\\Users\\Esteb\\Documents\\ProyectoDriveTest"
-                                            },
-                                            {
-                                                "name": "Filetest.txt",
-                                                "absolutePath": "c:\\Users\\Esteb\\Documents\\ProyectoDriveTest"
-                                            },
-                                            {
-                                                "name": "Filetest.txt",
-                                                "absolutePath": "c:\\Users\\Esteb\\Documents\\ProyectoDriveTest"
-                                            },
-                                            {
-                                                "name": "Filetest.txt",
-                                                "absolutePath": "c:\\Users\\Esteb\\Documents\\ProyectoDriveTest"
-                                            },
-                                            {
-                                                "name": "Filetest.txt",
-                                                "absolutePath": "c:\\Users\\Esteb\\Documents\\ProyectoDriveTest"
-                                            }
-                                        ]
+                                        "files": []
                                     }
                                 ],
                                 "files": []
