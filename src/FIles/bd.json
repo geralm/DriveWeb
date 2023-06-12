@@ -2,23 +2,97 @@
     "users": [
         {
             "username": "prueba1",
-            "root": [
-                {
-                    "directory": {
+            "root": {
+                "name": "root",
+                "directories": [
+                    {
                         "name": "personal",
                         "directories": [],
                         "files": []
-                    }
-                },
-                {
-                    "directory": {
+                    },
+                    {
                         "name": "drive",
                         "directories": [],
                         "files": []
                     }
-                }
-            ]
+                ],
+                "files": []
+            }
+        },
+        {
+            "username": "test2",
+            "root": {
+                "name": "root",
+                "directories": [
+                    {
+                        "name": "personal",
+                        "directories": [],
+                        "files": []
+                    },
+                    {
+                        "name": "drive",
+                        "directories": [],
+                        "files": []
+                    }
+                ],
+                "files": []
+            }
+        },
+        {
+            "username": "test",
+            "root": {
+                "name": "root",
+                "directories": [
+                    {
+                        "name": "personal",
+                        "directories": [
+                            {
+                                "name": "test1",
+                                "directories": [
+                                    {
+                                        "name": "test2",
+                                        "directories": [],
+                                        "files": [
+                                            {
+                                                "name": "Filetest",
+                                                "absolutePath": "c:\\Users\\Esteb\\Documents\\ProyectoDriveTest"
+                                            },
+                                            {
+                                                "name": "Filetest.txt",
+                                                "absolutePath": "c:\\Users\\Esteb\\Documents\\ProyectoDriveTest"
+                                            },
+                                            {
+                                                "name": "Filetest.txt",
+                                                "absolutePath": "c:\\Users\\Esteb\\Documents\\ProyectoDriveTest"
+                                            },
+                                            {
+                                                "name": "Filetest.txt",
+                                                "absolutePath": "c:\\Users\\Esteb\\Documents\\ProyectoDriveTest"
+                                            },
+                                            {
+                                                "name": "Filetest.txt",
+                                                "absolutePath": "c:\\Users\\Esteb\\Documents\\ProyectoDriveTest"
+                                            },
+                                            {
+                                                "name": "Filetest.txt",
+                                                "absolutePath": "c:\\Users\\Esteb\\Documents\\ProyectoDriveTest"
+                                            }
+                                        ]
+                                    }
+                                ],
+                                "files": []
+                            }
+                        ],
+                        "files": []
+                    },
+                    {
+                        "name": "drive",
+                        "directories": [],
+                        "files": []
+                    }
+                ],
+                "files": []
+            }
         }
-      
     ]
 }

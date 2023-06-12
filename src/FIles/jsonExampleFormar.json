@@ -1,0 +1,25 @@
+{
+    "users": [ 
+        {
+            "username": "username",
+            "root": 
+            {
+                "name":"root",
+                "directories": 
+                [
+                    {
+                        "name": "personal",
+                        "directories": [],
+                        "files": []
+                    },
+                    {
+                        "name": "drive",
+                        "directories": [],
+                        "files": []
+                    }
+                ], 
+                "files": []
+            }
+        }
+    ]
+}
