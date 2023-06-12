@@ -27,6 +27,7 @@ from datetime import datetime
 class FileManager():
     def __init__(self) -> None:
         self.BD_PATH = 'src/Files/bd.json'
+        self.DEFAULTS_DIRECTORIES:tuple = ("personal", "drive", "root")
     def getFileProperties(self, path: str) -> dict:
         file: dict = {}  # Crear un diccionario vacío para almacenar las propiedades del archivo
         if os.path.exists(path):  # Comprobar si la ruta de archivo existe
@@ -135,6 +136,8 @@ class FileManager():
     def deleteDirectory(self, userData: dict, path: str) -> dict:
         path = tuple(path.split("/"))
         dest: dict = userData["root"]
+        if self.isDefaultDirectory(path[-1]):
+            return {"error": "Default directory cannot be deleted"}
         for directory in path[:-1]:
             directory_found:bool = False
             for item in dest["directories"]:
@@ -185,6 +188,8 @@ class FileManager():
             "name": name,
             "absolutePath": absolutePath,
         }
+    def isDefaultDirectory(self, name:str)->bool:
+        return name in self.DEFAULTS_DIRECTORIES
 # bd = BD()
 bd: FileManager = FileManager()
 #print(bd.createUser("test2"))
@@ -199,5 +204,9 @@ bd: FileManager = FileManager()
 # print(bd.addDirectory(bd.getUser("test"), bd.createDirectory("test2"), "personal/test1"))
 # print(bd.addDirectory(bd.getUser("test"), bd.createDirectory("test3"), "personal/test1/test2")) # Error
 # print(bd.addFile(bd.getUser("test"), bd.createFile("Filetest.txt", r"c:\Users\Esteb\Documents\ProyectoDriveTest"), "personal/test1/test2"))
+# File: dict = bd.searchFile(bd.getUser("test"), "personal/test1/test2/Filetest.txt")
+# print(bd.getFileProperties(File["absolutePath"]))
+# print(bd.deleteFile(bd.getUser("test"), "personal/test1/test2/Filetest.txt"))
 
+print(bd.deleteDirectory(bd.getUser("prueba1"), "personal/"))
     

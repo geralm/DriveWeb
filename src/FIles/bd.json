@@ -37,37 +37,9 @@
                 ],
                 "files": []
             }
-        },
-        {
-            "username": "test",
-            "root": {
-                "name": "root",
-                "directories": [
-                    {
-                        "name": "personal",
-                        "directories": [
-                            {
-                                "name": "test1",
-                                "directories": [
-                                    {
-                                        "name": "test2",
-                                        "directories": [],
-                                        "files": []
-                                    }
-                                ],
-                                "files": []
-                            }
-                        ],
-                        "files": []
-                    },
-                    {
-                        "name": "drive",
-                        "directories": [],
-                        "files": []
-                    }
-                ],
-                "files": []
-            }
         }
+        
+            
+        
     ]
 }
