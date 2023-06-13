@@ -184,8 +184,8 @@ print(bd.createUser("Panfilo"))
 # print(bd.addDirectory(bd.getUser("test"), bd.createDirectory("test2"), "personal/test1"))
 # print(bd.addDirectory(bd.getUser("test"), bd.createDirectory("test3"), "personal/test1/test2")) # Error
 # print(bd.addFile(bd.getUser("Valeria"), bd.createFile(r"c:\Users\Esteb\Documents\ProyectoDriveTest\prueba1.txt"), "drive"))
-# File: dict = bd.searchFile(bd.getUser("Valeria"), "drive/prueba1.txt")
-# print(bd.getFileProperties(File["absolutePath"]))
+# # File: dict = bd.searchFile(bd.getUser("Valeria"), "drive/prueba1.txt")
+# # print(bd.getFileProperties(File["absolutePath"]))
 # print(bd.deleteFile(bd.getUser("test"), "personal/test1/test2/Filetest.txt"))
 
 
