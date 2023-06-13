@@ -1,29 +1,6 @@
 import json 
 import os
 from datetime import datetime
-
-"""
-    {
-    "users": [
-        {
-        "username": "username",
-        "root": {
-            "personal": {
-            "directories": [],
-            "files": [
-                {
-                "name": "file1",
-                "absolutePath": "C:/Users/username/personal/file1.txt",
-                }
-            ]
-            },
-            "drive": {}
-        }
-        }
-    ]
-    }
-    
-"""
 class FileManager():
     def __init__(self) -> None:
         self.BD_PATH = 'src/Files/bd.json'
@@ -183,7 +160,8 @@ class FileManager():
                     "directories": [],
                     "files": []
                 }
-    def createFile(self, name:str, absolutePath:str)->dict:
+    def createFile(self, absolutePath:str)->dict:
+        name: str = absolutePath.split("\\")[-1]
         return {
             "name": name,
             "absolutePath": absolutePath,
@@ -192,19 +170,21 @@ class FileManager():
         return name in self.DEFAULTS_DIRECTORIES
 # bd = BD()
 bd: FileManager = FileManager()
-#print(bd.createUser("test2"))
-# print(bd.getUser("test"))
-# print(bd.addFile(bd.getUser("test"), bd.createFile("Filetest", r"c:\Users\Esteb\Documents\ProyectoDriveTest"), "personal"))
+print(bd.createUser("Panfilo"))
+#print(bd.getUser("test"))
+#print(bd.addFile(bd.getUser("Valeria"), bd.createFile("Filetest", r"c:\Users\Esteb\Documents\ProyectoDriveTest"), "drive"))
+#print(bd.addFile(bd.getUser("Valeria"), bd.createFile("Filetest", r"c:\Users\Esteb\Documents\ProyectoDriveTest"), "personal/carpetaprueba"))
+
 # print(bd.getUser("test"))
 # print(bd.deleteFile(bd.getUser("test"), "personal/Filetest"))
 # print(bd.getUser("test"))
 # print(bd.deleteFile(bd.getUser("test"), "test"))
 # print(bd.getUser("test"))
-# print(bd.addDirectory(bd.getUser("test"), bd.createDirectory("test1"), "personal"))
+#print(bd.addDirectory(bd.getUser("test"), bd.createDirectory("test1"), "personal"))
 # print(bd.addDirectory(bd.getUser("test"), bd.createDirectory("test2"), "personal/test1"))
 # print(bd.addDirectory(bd.getUser("test"), bd.createDirectory("test3"), "personal/test1/test2")) # Error
-# print(bd.addFile(bd.getUser("test"), bd.createFile("Filetest.txt", r"c:\Users\Esteb\Documents\ProyectoDriveTest"), "personal/test1/test2"))
-# File: dict = bd.searchFile(bd.getUser("test"), "personal/test1/test2/Filetest.txt")
+# print(bd.addFile(bd.getUser("Valeria"), bd.createFile(r"c:\Users\Esteb\Documents\ProyectoDriveTest\prueba1.txt"), "drive"))
+# File: dict = bd.searchFile(bd.getUser("Valeria"), "drive/prueba1.txt")
 # print(bd.getFileProperties(File["absolutePath"]))
 # print(bd.deleteFile(bd.getUser("test"), "personal/test1/test2/Filetest.txt"))
 

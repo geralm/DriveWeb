@@ -1,7 +1,7 @@
 {
     "users": [
         {
-            "username": "prueba1",
+            "username": "Valeria",
             "root": {
                 "name": "root",
                 "directories": [
@@ -13,14 +13,20 @@
                     {
                         "name": "drive",
                         "directories": [],
-                        "files": []
+                        "files": [    
+                            {
+                                "name": "prueba1.txt",
+                                "absolutePath": "c:\\Users\\Esteb\\Documents\\ProyectoDriveTest\\prueba1.txt"
+                            }
+                        
+                        ]
                     }
                 ],
                 "files": []
             }
         },
         {
-            "username": "test2",
+            "username": "Panfilo",
             "root": {
                 "name": "root",
                 "directories": [
@@ -38,8 +44,5 @@
                 "files": []
             }
         }
-        
-            
-        
     ]
 }
