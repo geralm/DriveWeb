@@ -1,0 +1,48 @@
+{
+    "users": [
+        {
+            "username": "Valeria",
+            "root": {
+                "name": "root",
+                "directories": [
+                    {
+                        "name": "personal",
+                        "directories": [],
+                        "files": []
+                    },
+                    {
+                        "name": "drive",
+                        "directories": [],
+                        "files": [    
+                            {
+                                "name": "prueba1.txt",
+                                "absolutePath": "c:\\Users\\Esteb\\Documents\\ProyectoDriveTest\\prueba1.txt"
+                            }
+                        
+                        ]
+                    }
+                ],
+                "files": []
+            }
+        },
+        {
+            "username": "Panfilo",
+            "root": {
+                "name": "root",
+                "directories": [
+                    {
+                        "name": "personal",
+                        "directories": [],
+                        "files": []
+                    },
+                    {
+                        "name": "drive",
+                        "directories": [],
+                        "files": []
+                    }
+                ],
+                "files": []
+            }
+        }
+    ]
+}
