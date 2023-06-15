@@ -2,9 +2,11 @@ import json
 import os
 from datetime import datetime
 class FileManager():
+    
     def __init__(self) -> None:
         self.BD_PATH = 'src/Files/bd.json'
         self.DEFAULTS_DIRECTORIES:tuple = ("personal", "drive", "root")
+
     def getFileProperties(self, path: str) -> dict:
         file: dict = {}  # Crear un diccionario vacío para almacenar las propiedades del archivo
         if os.path.exists(path):  # Comprobar si la ruta de archivo existe
@@ -22,7 +24,7 @@ class FileManager():
             file = {"error": "File not found"}
         return file  # Devolver el diccionario con las propiedades del archivo
 
-    def createUser(self, username: str) -> dict:
+    def createUser(self, username: str, cantBytes: int) -> dict:
         try:
             with open(self.BD_PATH, 'r') as file:
                 data = json.load(file)
@@ -32,7 +34,8 @@ class FileManager():
                 else:
                     data['users'].append({
                         "username": username,
-                        "root": self.createDirectory("root")
+                        "root": self.createDirectory("root"),
+                        "sizeDrive": cantBytes
                     })
                     data['users'][-1]["root"]["directories"].append( self.createDirectory("personal"))
                     data['users'][-1]["root"]["directories"].append( self.createDirectory("drive"))
@@ -160,19 +163,46 @@ class FileManager():
                     "directories": [],
                     "files": []
                 }
-    def createFile(self, absolutePath:str)->dict:
+    def createFile2(self, absolutePath:str)->dict:
         name: str = absolutePath.split("\\")[-1]
         return {
             "name": name,
             "absolutePath": absolutePath,
         }
+    
+    def generarId(self) -> int:
+        with open(self.BD_PATH, 'r') as file:
+            json_content = json.load(file)
+            json_content["id_counter"] += 1
+
+        with open(self.BD_PATH, 'w') as file:
+            json.dump(json_content, file)
+
+        return json_content["id_counter"]
+    
+    def calcularTamanoEnBytes(self, string:str)->int:
+        bytes_string = string.encode()
+        tamano_en_bytes = len(bytes_string)
+        return tamano_en_bytes
+
+    def createFile(self, name:str, content:str)->dict:
+        id = self.generarId()
+        return {
+            "id": id,
+            "name": name+".txt",
+            "content": content,
+            "size": self.calcularTamanoEnBytes(content),
+            "compartido": False
+        }
+    
+
     def isDefaultDirectory(self, name:str)->bool:
         return name in self.DEFAULTS_DIRECTORIES
 # bd = BD()
 bd: FileManager = FileManager()
-print(bd.createUser("Panfilo"))
-#print(bd.getUser("test"))
-#print(bd.addFile(bd.getUser("Valeria"), bd.createFile("Filetest", r"c:\Users\Esteb\Documents\ProyectoDriveTest"), "drive"))
+#print(bd.createUser("Prueba",100))
+print(bd.addFile(bd.getUser("Prueba"), bd.createFile("Filetest", "Hola, esto es una prueba"), "personal"))
+print(bd.getUser("Prueba"))
 #print(bd.addFile(bd.getUser("Valeria"), bd.createFile("Filetest", r"c:\Users\Esteb\Documents\ProyectoDriveTest"), "personal/carpetaprueba"))
 
 # print(bd.getUser("test"))

@@ -1,48 +1,40 @@
 {
     "users": [
         {
-            "username": "Valeria",
+            "username": "Prueba",
             "root": {
                 "name": "root",
                 "directories": [
                     {
                         "name": "personal",
                         "directories": [],
-                        "files": []
+                        "files": [
+                            {
+                                "id": 2,
+                                "name": "Filetest.txt",
+                                "content": "Hola, esto es una prueba",
+                                "size": 24,
+                                "compartido": false
+                            }
+                        ]
                     },
                     {
                         "name": "drive",
                         "directories": [],
-                        "files": [    
+                        "files": [
                             {
-                                "name": "prueba1.txt",
-                                "absolutePath": "c:\\Users\\Esteb\\Documents\\ProyectoDriveTest\\prueba1.txt"
+                                "id": 1,
+                                "name": "Filetest.txt",
+                                "content": "Hola, esto es una prueba",
+                                "size": 24,
+                                "compartido": false
                             }
-                        
                         ]
                     }
                 ],
                 "files": []
             }
-        },
-        {
-            "username": "Panfilo",
-            "root": {
-                "name": "root",
-                "directories": [
-                    {
-                        "name": "personal",
-                        "directories": [],
-                        "files": []
-                    },
-                    {
-                        "name": "drive",
-                        "directories": [],
-                        "files": []
-                    }
-                ],
-                "files": []
-            }
         }
-    ]
+    ],
+    "id_counter": 2
 }
