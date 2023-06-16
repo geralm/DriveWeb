@@ -99,9 +99,16 @@ class FileManager():
         dest: dict = self.__searchDirectory(userData, path)
         if dest.get("error"):
             return dest
+        
+        nombre = directoryData["name"]
+        for directory in dest["directories"]:
+            if directory["name"] == nombre:
+                return {"error": "Ya existe el nombre del directorio"}
+            
         dest["directories"].append(directoryData)
         self.__updateUser(userData)
         return {"status": "Directory added successfully"}
+    
     def deleteFile(self, userData: dict, path: str) -> dict:
         path = tuple(path.split("/"))
         dest: dict = userData["root"]

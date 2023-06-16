@@ -76,6 +76,18 @@ Ruta: root/{{ stringDirectorio }}
             <input  class="btn btn-success"  type="submit" value="Crear Archivo">
         </form>
 
+        <br>
+        <br>
+        <h4>Crear Directorio en el directorio Actual: </h4>
+        <form action="\crearDirectorio" method="POST">
+            <input hidden name="arbol" value="{{ drive }}">
+            <input hidden name="usuario" value="{{ usuario }}">
+            <input hidden name="jsonResultado" value="{{ jsonResultado }}">
+            <input hidden name="stringDirectorio" value="{{ stringDirectorio }}">
+            <input type="text" name="nombreDirectorioCreacion" data-dismiss="alert"placeholder="Nombre del directorio" required><br>
+            <input  class="btn btn-success"  type="submit" value="Crear Directorio">
+        </form>
+
 
 
     </div>
