@@ -7,7 +7,88 @@
                 "directories": [
                     {
                         "name": "personal",
-                        "directories": [],
+                        "directories": [
+                            {
+                                "name": "Anidado1",
+                                "directories": [
+                                    {
+                                        "name": "Anidado1.1",
+                                        "directories": [],
+                                        "files": [
+                                            {
+                                                "id": 2,
+                                                "name": "archivoRandom.txt",
+                                                "content": "Hola, esto es una prueba",
+                                                "size": 24,
+                                                "compartido": false
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "Anidado1.2",
+                                        "directories": [
+                                            {
+                                                "name": "utimojiji",
+                                                "directories": [],
+                                                "files": [
+                                                    {
+                                                        "id": 2,
+                                                        "name": "jiji.txt",
+                                                        "content": "Hola, esto es una prueba",
+                                                        "size": 24,
+                                                        "compartido": false
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "name": "ultimoUltimo",
+                                                "directories": [],
+                                                "files": [
+                                                    {
+                                                        "id": 1,
+                                                        "name": "buenaas.txt",
+                                                        "content": "Hola, esto es una prueba",
+                                                        "size": 24,
+                                                        "compartido": false
+                                                    }
+                                                ]
+                                            }
+                                        ],
+                                        "files": [
+                                            {
+                                                "id": 1,
+                                                "name": "otroArchivo.txt",
+                                                "content": "Hola, esto es una prueba",
+                                                "size": 24,
+                                                "compartido": false
+                                            }
+                                        ]
+                                    }
+                                ],
+                                "files": [
+                                    {
+                                        "id": 2,
+                                        "name": "esoooo.txt",
+                                        "content": "Hola, esto es una prueba",
+                                        "size": 24,
+                                        "compartido": false
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "Anidado2",
+                                "directories": [],
+                                "files": [
+                                    {
+                                        "id": 1,
+                                        "name": "esoooo2.txt",
+                                        "content": "Hola, esto es una prueba",
+                                        "size": 24,
+                                        "compartido": false
+                                    }
+                                ]
+                            }
+                        ],
                         "files": [
                             {
                                 "id": 2,

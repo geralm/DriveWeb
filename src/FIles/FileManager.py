@@ -199,10 +199,10 @@ class FileManager():
     def isDefaultDirectory(self, name:str)->bool:
         return name in self.DEFAULTS_DIRECTORIES
 # bd = BD()
-bd: FileManager = FileManager()
+#bd: FileManager = FileManager()
 #print(bd.createUser("Prueba",100))
-print(bd.addFile(bd.getUser("Prueba"), bd.createFile("Filetest", "Hola, esto es una prueba"), "personal"))
-print(bd.getUser("Prueba"))
+#print(bd.addFile(bd.getUser("Prueba"), bd.createFile("Filetest", "Hola, esto es una prueba"), "personal"))
+#print(bd.getUser("Prueba"))
 #print(bd.addFile(bd.getUser("Valeria"), bd.createFile("Filetest", r"c:\Users\Esteb\Documents\ProyectoDriveTest"), "personal/carpetaprueba"))
 
 # print(bd.getUser("test"))
