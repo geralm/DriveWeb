@@ -105,6 +105,24 @@ def verArchivo():
     else:
         return render_template('drive.html', drive = arbol, jsonResultado = jsonResultado, stringDirectorio = stringDirectorio, usuario = nombreUsuario, infoArchivo = resultado["info"]  )
 
+@views.route("/crearArchivo", methods = ['POST'])
+def crearArchivo():
+    nombreUsuario = request.form ['usuario']
+    stringDirectorio = request.form['stringDirectorio']
+    arbol = request.form ['arbol']
+    jsonResultado = request.form['jsonResultado']
+
+    nombreArchivo = request.form['nombreArchivoCreacion']
+    contenido = request.form['contenidoArchivoCreacion']
+    extension = request.form['extensionArchivoCreacion']
+    
+    bd: FileManager = FileManager()
+    resultado = bd.addFile(bd.getUser(nombreUsuario), bd.createFile(nombreArchivo,contenido,extension), stringDirectorio)
+    if "error" in resultado:
+        return render_template('drive.html', drive = arbol, jsonResultado = jsonResultado,stringDirectorio = stringDirectorio, error = "Error al crear Archivo: nombre repetido", usuario = nombreUsuario, infoArchivo = ""   )
+    else:
+        return render_template('drive.html', drive = arbol, jsonResultado = jsonResultado, stringDirectorio = stringDirectorio, usuario = nombreUsuario, infoArchivo = "", error = "Archivo creado con exito" )
+
 
 def generar_arbol(json, nivel=0):
     arbol = ''

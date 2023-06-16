@@ -85,9 +85,16 @@ class FileManager():
         dest: dict = self.__searchDirectory(userData, path)
         if dest.get("error"):
             return dest
+        
+        nombre = fileData["name"]
+        for file in dest["files"]:
+            if file["name"] == nombre:
+                return {"error": "Ya existe el nombre del archivo"}
+            
         dest["files"].append(fileData)
         self.__updateUser(userData)
         return {"status": "File added successfully"}
+    
     def addDirectory(self, userData: dict, directoryData: dict, path: str) -> dict:
         dest: dict = self.__searchDirectory(userData, path)
         if dest.get("error"):
@@ -206,12 +213,6 @@ class FileManager():
                     "directories": [],
                     "files": []
                 }
-    def createFile2(self, absolutePath:str)->dict:
-        name: str = absolutePath.split("\\")[-1]
-        return {
-            "name": name,
-            "absolutePath": absolutePath,
-        }
     
     def generarId(self) -> int:
         with open(self.BD_PATH, 'r') as file:
@@ -228,13 +229,17 @@ class FileManager():
         tamano_en_bytes = len(bytes_string)
         return tamano_en_bytes
 
-    def createFile(self, name:str, content:str)->dict:
+    def createFile(self, name:str, content:str, extension: str)->dict:
         id = self.generarId()
+        fecha_actual = datetime.now()
+        fecha_hora_str = fecha_actual.strftime("%Y-%m-%d %H:%M:%S")
         return {
             "id": id,
-            "name": name+".txt",
+            "name": name+"."+extension,
             "content": content,
             "size": self.calcularTamanoEnBytes(content),
+            "fechaCreacion": fecha_hora_str,
+            "fechaModificacion": fecha_hora_str,
             "compartido": False
         }
     

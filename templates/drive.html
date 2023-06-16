@@ -18,18 +18,26 @@
     {% endif %}
     <div class="drive">
 
-        <textarea id="infoArchivoTextArea" name="infoArchivoTextArea" rows="1" cols="85">
+        <textarea readonly id="ruta" name="ruta" rows="1" cols="85">
 Ruta: root/{{ stringDirectorio }}
-                    </textarea>
+        </textarea>
 
-        <textarea id="w3review" name="w3review" rows="40" cols="50">
+        <br>
+        <br>
+        <h4>Estructura del directorio Actual: </h4>
+
+        <textarea readonly id="w3review" name="w3review" rows="30" cols="85">
 {{ drive }}
         </textarea>
+
+        <br>
+        <br>
+        <h4>Moverse: </h4>
         <form action="\entrarDirectorio" method="POST">
             <input hidden name="usuario" value="{{ usuario }}">
             <input hidden name="jsonResultado" value="{{ jsonResultado }}">
             <input hidden name="stringDirectorio" value="{{ stringDirectorio }}">
-            <input type="text" name="directorio" data-dismiss="alert"placeholder="Nombre del directorio" required><br><br>
+            <input type="text" name="directorio" data-dismiss="alert"placeholder="Nombre del directorio" required><br>
             <input  class="btn btn-success"  type="submit" value="Entrar"><br>
         </form>
         <form action="\salirDirectorio" method="POST">
@@ -39,18 +47,34 @@ Ruta: root/{{ stringDirectorio }}
             <input  class="btn btn-success"  type="submit" value="Retroceder"><br><br>
         </form>
 
+  
+        <h4>Ver propiedades y contenido de Archivo: </h4>
         <form action="\verArchivo" method="POST">
             <input hidden name="arbol" value="{{ drive }}">
             <input hidden name="usuario" value="{{ usuario }}">
             <input hidden name="jsonResultado" value="{{ jsonResultado }}">
             <input hidden name="stringDirectorio" value="{{ stringDirectorio }}">
-            <input type="text" name="archivo" data-dismiss="alert"placeholder="Nombre del archivo" required><br><br>
+            <input type="text" name="archivo" data-dismiss="alert"placeholder="Nombre del archivo" required><br>
             <input  class="btn btn-success"  type="submit" value="Ver Archivo">
-        </form><br>
+        </form>
 
-        <textarea id="infoArchivoTextArea" name="infoArchivoTextArea" rows="20" cols="50">
+        <textarea readonly id="infoArchivoTextArea" name="infoArchivoTextArea" rows="15" cols="85">
 {{ infoArchivo }}
         </textarea>
+
+        <br>
+        <br>
+        <h4>Crear Archivo en el directorio Actual: </h4>
+        <form action="\crearArchivo" method="POST">
+            <input hidden name="arbol" value="{{ drive }}">
+            <input hidden name="usuario" value="{{ usuario }}">
+            <input hidden name="jsonResultado" value="{{ jsonResultado }}">
+            <input hidden name="stringDirectorio" value="{{ stringDirectorio }}">
+            <input type="text" name="nombreArchivoCreacion" data-dismiss="alert"placeholder="Nombre del archivo" required><br>
+            <input type="text" name="extensionArchivoCreacion" data-dismiss="alert"placeholder="Extension del archivo" required><br>
+            <textarea name="contenidoArchivoCreacion" data-dismiss="alert" placeholder="Contenido del archivo" required rows="4" cols="85"></textarea><br>
+            <input  class="btn btn-success"  type="submit" value="Crear Archivo">
+        </form>
 
 
 
