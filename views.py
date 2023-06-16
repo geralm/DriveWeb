@@ -46,7 +46,7 @@ def entrarDirectorio():
     jsonResultado = eval(jsonResultado)
     stringDirectorio = request.form['stringDirectorio']
     nombreDirectorio = request.form['directorio']
-    listaDirectorio = stringDirectorio.split(',')
+    listaDirectorio = stringDirectorio.split('/')
     listaTentativa = listaDirectorio.copy()
     listaTentativa.append(nombreDirectorio)
     if listaTentativa[0] == '':
@@ -60,7 +60,7 @@ def entrarDirectorio():
         else:
             arbol = generar_arbol(directorioActual)
             return render_template('drive.html', drive = arbol, jsonResultado = jsonResultado,stringDirectorio = stringDirectorio, error = "Nombre de carpeta inválido", infoArchivo = "", usuario = nombreUsuario   )
-    stringDirectorio = ",".join(listaTentativa)
+    stringDirectorio = "/".join(listaTentativa)
     arbol = generar_arbol(directorioActual)
     return render_template('drive.html', drive = arbol, jsonResultado = jsonResultado, stringDirectorio = stringDirectorio, infoArchivo = "", usuario = nombreUsuario   )
 
@@ -70,7 +70,7 @@ def salirDirectorio():
     jsonResultado = request.form['jsonResultado']
     jsonResultado = eval(jsonResultado)
     stringDirectorio = request.form['stringDirectorio']
-    listaDirectorio = stringDirectorio.split(',')
+    listaDirectorio = stringDirectorio.split('/')
     listaTentativa = listaDirectorio.copy()
     if listaTentativa[0] == '':
         listaTentativa.pop(0)
@@ -85,7 +85,7 @@ def salirDirectorio():
         else:
             arbol = generar_arbol(directorioActual)
             return render_template('drive.html', drive = arbol, jsonResultado = jsonResultado,stringDirectorio = stringDirectorio, error = "Nombre de carpeta inválido", usuario = nombreUsuario, infoArchivo = ""    )
-    stringDirectorio = ",".join(listaTentativa)
+    stringDirectorio = "/".join(listaTentativa)
     arbol = generar_arbol(directorioActual)
     return render_template('drive.html', drive = arbol, jsonResultado = jsonResultado, stringDirectorio = stringDirectorio, usuario = nombreUsuario, infoArchivo = ""    )
     

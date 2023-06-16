@@ -148,7 +148,7 @@ class FileManager():
                 return {"error": "Directory not found"}
         return dest
     def searchFile(self, username: str, path: str, name: str) -> dict:
-        listaDirectorio = path.split(',')
+        listaDirectorio = path.split('/')
         lista_directorios = listaDirectorio.copy()
 
         # Cargar el JSON en un diccionario
@@ -194,9 +194,7 @@ class FileManager():
         informacion = f"Información del archivo:\n"
         informacion += f"Nombre: {archivo_encontrado['name']}\n"
         informacion += f"Extension: txt\n"
-        informacion += f"Compartido: {archivo_encontrado['compartido']}"
         informacion += f"Tamaño: {archivo_encontrado['size']}\n"
-        informacion += f"Compartido: {archivo_encontrado['compartido']}\n"
         informacion += f"Contenido: {archivo_encontrado['content']}\n"
         
         return {"info": informacion}
@@ -245,7 +243,7 @@ class FileManager():
         return name in self.DEFAULTS_DIRECTORIES
 # bd = BD()
 bd: FileManager = FileManager()
-print (bd.searchFile("Prueba", "personal,Anidado1","esoooo.txt"))
+#print (bd.searchFile("Prueba", "personal/Anidado1","esoooo.txt"))
 #print(bd.createUser("Prueba",100))
 #print(bd.addFile(bd.getUser("Prueba"), bd.createFile("Filetest", "Hola, esto es una prueba"), "personal"))
 #print(bd.getUser("Prueba"))

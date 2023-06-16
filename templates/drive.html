@@ -17,7 +17,12 @@
     <div class="alert alert-danger" role="alert">{{error}}</div>
     {% endif %}
     <div class="drive">
-        <textarea id="w3review" name="w3review" rows="50" cols="50">
+
+        <textarea id="infoArchivoTextArea" name="infoArchivoTextArea" rows="1" cols="85">
+Ruta: root/{{ stringDirectorio }}
+                    </textarea>
+
+        <textarea id="w3review" name="w3review" rows="40" cols="50">
 {{ drive }}
         </textarea>
         <form action="\entrarDirectorio" method="POST">
