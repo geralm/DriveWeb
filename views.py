@@ -32,14 +32,16 @@ def iniciarSesion():
     resultado = bd.getUser(username=nombreUsuario)
     if "error" in resultado:
         errorInicioSesion = "Error al iniciar sesión. Por favor, revise las credenciales"
-        return render_template('index.html', error = errorInicioSesion )
+        return render_template('index.html', error = errorInicioSesion)
     else:
         errorInicioSesion = "Se ingresó exitosamente"
         arbol = generar_arbol(resultado['root'])
-        return render_template('drive.html', drive = arbol, jsonResultado = resultado)
+        return render_template('drive.html', drive = arbol, jsonResultado = resultado, usuario = nombreUsuario )
     
 @views.route("/entrarDirectorio", methods = ['POST'])
 def entrarDirectorio():
+    nombreUsuario = request.form ['usuario']
+    usuario = request.form ['usuario']
     jsonResultado = request.form['jsonResultado']
     jsonResultado = eval(jsonResultado)
     stringDirectorio = request.form['stringDirectorio']
@@ -57,13 +59,14 @@ def entrarDirectorio():
                 break
         else:
             arbol = generar_arbol(directorioActual)
-            return render_template('drive.html', drive = arbol, jsonResultado = jsonResultado,stringDirectorio = stringDirectorio, error = "Nombre de carpeta inválido" )
+            return render_template('drive.html', drive = arbol, jsonResultado = jsonResultado,stringDirectorio = stringDirectorio, error = "Nombre de carpeta inválido", infoArchivo = "", usuario = nombreUsuario   )
     stringDirectorio = ",".join(listaTentativa)
     arbol = generar_arbol(directorioActual)
-    return render_template('drive.html', drive = arbol, jsonResultado = jsonResultado, stringDirectorio = stringDirectorio )
+    return render_template('drive.html', drive = arbol, jsonResultado = jsonResultado, stringDirectorio = stringDirectorio, infoArchivo = "", usuario = nombreUsuario   )
 
 @views.route("/salirDirectorio", methods = ['POST'])
 def salirDirectorio():
+    nombreUsuario = request.form ['usuario']
     jsonResultado = request.form['jsonResultado']
     jsonResultado = eval(jsonResultado)
     stringDirectorio = request.form['stringDirectorio']
@@ -81,11 +84,28 @@ def salirDirectorio():
                 break
         else:
             arbol = generar_arbol(directorioActual)
-            return render_template('drive.html', drive = arbol, jsonResultado = jsonResultado,stringDirectorio = stringDirectorio, error = "Nombre de carpeta inválido" )
+            return render_template('drive.html', drive = arbol, jsonResultado = jsonResultado,stringDirectorio = stringDirectorio, error = "Nombre de carpeta inválido", usuario = nombreUsuario, infoArchivo = ""    )
     stringDirectorio = ",".join(listaTentativa)
     arbol = generar_arbol(directorioActual)
-    return render_template('drive.html', drive = arbol, jsonResultado = jsonResultado, stringDirectorio = stringDirectorio )
+    return render_template('drive.html', drive = arbol, jsonResultado = jsonResultado, stringDirectorio = stringDirectorio, usuario = nombreUsuario, infoArchivo = ""    )
     
+
+
+@views.route("/verArchivo", methods = ['POST'])
+def verArchivo():
+    nombreUsuario = request.form ['usuario']
+    arbol = request.form ['arbol']
+    nombreArchivo = request.form['archivo']
+    stringDirectorio = request.form['stringDirectorio']
+    jsonResultado = request.form['jsonResultado']
+    bd: FileManager = FileManager()
+    resultado = bd.searchFile(nombreUsuario, stringDirectorio, nombreArchivo) 
+    if "error" in resultado:
+        return render_template('drive.html', drive = arbol, jsonResultado = jsonResultado,stringDirectorio = stringDirectorio, error = "Archivo no encontrado", usuario = nombreUsuario, infoArchivo = ""   )
+    else:
+        return render_template('drive.html', drive = arbol, jsonResultado = jsonResultado, stringDirectorio = stringDirectorio, usuario = nombreUsuario, infoArchivo = resultado["info"]  )
+
+
 def generar_arbol(json, nivel=0):
     arbol = ''
     for directorio in json['directories']:

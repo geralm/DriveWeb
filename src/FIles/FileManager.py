@@ -147,16 +147,61 @@ class FileManager():
             if not directory_found:
                 return {"error": "Directory not found"}
         return dest
-    def searchFile(self, userData: dict, path: str) -> dict:
-        fileName = path.split("/")[-1]
-        directoryPath = "/".join(path.split("/")[:-1])
-        dest: dict = self.__searchDirectory(userData, directoryPath)
-        if dest.get("error"):
-            return dest
-        for file in dest["files"]:
-            if file.get("name") == fileName:
-                return file
-        return {"error": "File not found"}
+    def searchFile(self, username: str, path: str, name: str) -> dict:
+        listaDirectorio = path.split(',')
+        lista_directorios = listaDirectorio.copy()
+
+        # Cargar el JSON en un diccionario
+        with open(self.BD_PATH) as file:
+            data = json.load(file)
+
+        # Buscar el usuario por el nombre de usuario
+        usuarios = data["users"]
+        usuario_encontrado = None
+        for usuario in usuarios:
+            if usuario["username"] == username:
+                usuario_encontrado = usuario
+                break
+
+        if usuario_encontrado is None:
+            return {"error": "Usuario no encontrado"}
+        
+        # Buscar los directorios en la estructura del usuario
+        directorios = usuario_encontrado["root"]["directories"]
+        for nombre_directorio in lista_directorios:
+            directorio_encontrado = None
+            for directorio in directorios:
+                if directorio["name"] == nombre_directorio:
+                    directorio_encontrado = directorio
+                    directorios = directorio["directories"]
+                    files = directorio["files"]
+                    break
+
+            if directorio_encontrado is None:
+                return {"error": "Directorio no encontrado "+nombre_directorio}
+            
+        # Buscar el archivo en el último directorio
+        archivos = files
+        archivo_encontrado = None
+        for archivo in archivos:
+            if archivo["name"] == name:
+                archivo_encontrado = archivo
+                break
+
+        if archivo_encontrado is None:
+            return {"error": "Archivo no encontrado"}
+
+        informacion = f"Información del archivo:\n"
+        informacion += f"Nombre: {archivo_encontrado['name']}\n"
+        informacion += f"Extension: txt\n"
+        informacion += f"Compartido: {archivo_encontrado['compartido']}"
+        informacion += f"Tamaño: {archivo_encontrado['size']}\n"
+        informacion += f"Compartido: {archivo_encontrado['compartido']}\n"
+        informacion += f"Contenido: {archivo_encontrado['content']}\n"
+        
+        return {"info": informacion}
+    
+    
     def createDirectory(self, name:str)->dict:
         return  {
                     "name": name,
@@ -199,7 +244,8 @@ class FileManager():
     def isDefaultDirectory(self, name:str)->bool:
         return name in self.DEFAULTS_DIRECTORIES
 # bd = BD()
-#bd: FileManager = FileManager()
+bd: FileManager = FileManager()
+print (bd.searchFile("Prueba", "personal,Anidado1","esoooo.txt"))
 #print(bd.createUser("Prueba",100))
 #print(bd.addFile(bd.getUser("Prueba"), bd.createFile("Filetest", "Hola, esto es una prueba"), "personal"))
 #print(bd.getUser("Prueba"))
