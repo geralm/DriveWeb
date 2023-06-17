@@ -31,6 +31,11 @@
                                         "name": "PruebaPagina",
                                         "directories": [],
                                         "files": []
+                                    },
+                                    {
+                                        "name": "directorioNuevo",
+                                        "directories": [],
+                                        "files": []
                                     }
                                 ],
                                 "files": [
@@ -50,6 +55,15 @@
                                         "size": 6,
                                         "fechaCreacion": "2023-06-16 17:32:56",
                                         "fechaModificacion": "2023-06-16 17:32:56",
+                                        "compartido": false
+                                    },
+                                    {
+                                        "id": 9,
+                                        "name": "archivito.py",
+                                        "content": "jellou",
+                                        "size": 6,
+                                        "fechaCreacion": "2023-06-16 22:20:04",
+                                        "fechaModificacion": "2023-06-16 22:20:04",
                                         "compartido": false
                                     }
                                 ]
@@ -105,5 +119,5 @@
             }
         }
     ],
-    "id_counter": 8
+    "id_counter": 9
 }

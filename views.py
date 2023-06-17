@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, url_for, make_response, flash
 from src.Files.FileManager import FileManager
 from urllib.parse import unquote
+import html
 import ast, json
 
 views = Blueprint(__name__,"views")
@@ -41,7 +42,6 @@ def iniciarSesion():
 @views.route("/entrarDirectorio", methods = ['POST'])
 def entrarDirectorio():
     nombreUsuario = request.form ['usuario']
-    usuario = request.form ['usuario']
     jsonResultado = request.form['jsonResultado']
     jsonResultado = eval(jsonResultado)
     stringDirectorio = request.form['stringDirectorio']
@@ -51,17 +51,11 @@ def entrarDirectorio():
     listaTentativa.append(nombreDirectorio)
     if listaTentativa[0] == '':
         listaTentativa.pop(0)
-    directorioActual = jsonResultado["root"]
-    for carpeta in listaTentativa:
-        for index, directory in enumerate(directorioActual['directories']):
-            if directory['name'] == carpeta:   
-                directorioActual = directorioActual['directories'][index]
-                break
-        else:
-            arbol = generar_arbol(directorioActual)
-            return render_template('drive.html', drive = arbol, jsonResultado = jsonResultado,stringDirectorio = stringDirectorio, error = "Nombre de carpeta inválido", infoArchivo = "", usuario = nombreUsuario   )
+    resultado = obtenerJsonRelativo(listaTentativa,nombreUsuario)
+    arbol = resultado[1]
+    if not resultado[0]:
+        return render_template('drive.html', drive = arbol, jsonResultado = jsonResultado,stringDirectorio = stringDirectorio, error = "Nombre de carpeta inválido", infoArchivo = "", usuario = nombreUsuario   )
     stringDirectorio = "/".join(listaTentativa)
-    arbol = generar_arbol(directorioActual)
     return render_template('drive.html', drive = arbol, jsonResultado = jsonResultado, stringDirectorio = stringDirectorio, infoArchivo = "", usuario = nombreUsuario   )
 
 @views.route("/salirDirectorio", methods = ['POST'])
@@ -76,22 +70,16 @@ def salirDirectorio():
         listaTentativa.pop(0)
     if len(listaTentativa) > 0:
         listaTentativa.pop(-1)
-    directorioActual = jsonResultado["root"]
-    for carpeta in listaTentativa:
-        for index, directory in enumerate(directorioActual['directories']):
-            if directory['name'] == carpeta:   
-                directorioActual = directorioActual['directories'][index]
-                break
-        else:
-            arbol = generar_arbol(directorioActual)
+    resultado = obtenerJsonRelativo(listaTentativa,nombreUsuario)
+    arbol = resultado[1]
+    if not resultado[0]:
             return render_template('drive.html', drive = arbol, jsonResultado = jsonResultado,stringDirectorio = stringDirectorio, error = "Nombre de carpeta inválido", usuario = nombreUsuario, infoArchivo = ""    )
     stringDirectorio = "/".join(listaTentativa)
-    arbol = generar_arbol(directorioActual)
     return render_template('drive.html', drive = arbol, jsonResultado = jsonResultado, stringDirectorio = stringDirectorio, usuario = nombreUsuario, infoArchivo = ""    )
     
 
 
-@views.route("/verArchivo", methods = ['POST'])
+@views.route("/verArchivo", methods = ['POST', 'GET'])
 def verArchivo():
     nombreUsuario = request.form ['usuario']
     arbol = request.form ['arbol']
@@ -100,6 +88,8 @@ def verArchivo():
     jsonResultado = request.form['jsonResultado']
     bd: FileManager = FileManager()
     resultado = bd.searchFile(nombreUsuario, stringDirectorio, nombreArchivo) 
+    listaDirectorio = stringDirectorio.split('/')
+    arbol = obtenerJsonRelativo(listaDirectorio,nombreUsuario)[1]
     if "error" in resultado:
         return render_template('drive.html', drive = arbol, jsonResultado = jsonResultado,stringDirectorio = stringDirectorio, error = "Archivo no encontrado", usuario = nombreUsuario, infoArchivo = ""   )
     else:
@@ -118,6 +108,8 @@ def crearArchivo():
     
     bd: FileManager = FileManager()
     resultado = bd.addFile(bd.getUser(nombreUsuario), bd.createFile(nombreArchivo,contenido,extension), stringDirectorio)
+    listaDirectorio = stringDirectorio.split('/')
+    arbol = obtenerJsonRelativo(listaDirectorio,nombreUsuario)[1]
     if "error" in resultado:
         return render_template('drive.html', drive = arbol, jsonResultado = jsonResultado,stringDirectorio = stringDirectorio, error = "Error al crear Archivo: nombre repetido", usuario = nombreUsuario, infoArchivo = ""   )
     else:
@@ -134,6 +126,8 @@ def crearDirectorio():
     
     bd: FileManager = FileManager()
     resultado = bd.addDirectory(bd.getUser(nombreUsuario), bd.createDirectory(nombreDirectorio), stringDirectorio)
+    listaDirectorio = stringDirectorio.split('/')
+    arbol = obtenerJsonRelativo(listaDirectorio,nombreUsuario)[1]
     if "error" in resultado:
         return render_template('drive.html', drive = arbol, jsonResultado = jsonResultado,stringDirectorio = stringDirectorio, error = "Error al crear Directorio: nombre repetido", usuario = nombreUsuario, infoArchivo = ""   )
     else:
@@ -147,3 +141,18 @@ def generar_arbol(json, nivel=0):
     for archivo in json['files']:
         arbol += '     ' * nivel + '├── ' + archivo['name'] + '\n'
     return arbol
+
+def obtenerJsonRelativo(listaDirectorios,nombreUsuario):
+    bd: FileManager = FileManager()
+    resultado = bd.getUser(username=nombreUsuario)
+    directorioActual = resultado["root"]
+    for carpeta in listaDirectorios:
+        for index, directory in enumerate(directorioActual['directories']):
+            if directory['name'] == carpeta:   
+                directorioActual = directorioActual['directories'][index]
+                break
+        else:
+            arbol = generar_arbol(directorioActual)
+            return (False,arbol)
+    arbol = generar_arbol(directorioActual)
+    return (True,arbol)

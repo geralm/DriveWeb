@@ -89,6 +89,7 @@ body {
 
   .drive textarea{
     text-align: left;
+    white-space: pre-wrap;
   }
   .panel input[type="text"]{
     border-radius: 10px;
