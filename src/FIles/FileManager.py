@@ -210,7 +210,8 @@ class FileManager():
         informacion += f"Extension: txt\n"
         informacion += f"Tamaño: {archivo_encontrado['size']}\n"
         informacion += f"Fecha Creacion: {archivo_encontrado['fechaCreacion']}\n"
-        informacion += f"Fecha Modificacion: {archivo_encontrado['fechaModificacion']}\n\n"
+        informacion += f"Fecha Modificacion: {archivo_encontrado['fechaModificacion']}\n"
+        informacion += f"Compartido: {archivo_encontrado['compartido']}\n\n"
 
         informacion += f"Contenido: {archivo_encontrado['content']}\n"
         
@@ -254,6 +255,9 @@ class FileManager():
             "compartido": False
         }
     
+    def shareFile(selfe, filename: str, username: str, path: str)->dict:
+        print ("en proceso")
+        
 
     def isDefaultDirectory(self, name:str)->bool:
         return name in self.DEFAULTS_DIRECTORIES
