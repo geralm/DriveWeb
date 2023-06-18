@@ -265,6 +265,61 @@ class FileManager():
         #2- no esta el archivo repetido?
         print ("en proceso")
 
+    def modificarFile(self, username: str, path: str, name: str, newContent: str) -> dict:
+        listaDirectorio = path.split('/')
+        lista_directorios = listaDirectorio.copy()
+
+        # Cargar el JSON en un diccionario
+        with open(self.BD_PATH) as file:
+            data = json.load(file)
+
+        # Buscar el usuario por el nombre de usuario
+        usuarios = data["users"]
+        usuario_encontrado = None
+        for usuario in usuarios:
+            if usuario["username"] == username:
+                usuario_encontrado = usuario
+                break
+
+        if usuario_encontrado is None:
+            return {"error": "Usuario no encontrado"}
+        
+        # Buscar los directorios en la estructura del usuario
+        directorios = usuario_encontrado["root"]["directories"]
+        for nombre_directorio in lista_directorios:
+            directorio_encontrado = None
+            for directorio in directorios:
+                if directorio["name"] == nombre_directorio:
+                    directorio_encontrado = directorio
+                    directorios = directorio["directories"]
+                    files = directorio["files"]
+                    break
+
+            if directorio_encontrado is None:
+                return {"error": "Directorio no encontrado "+nombre_directorio}
+            
+        # Buscar el archivo en el último directorio
+        archivos = files
+        archivo_encontrado = None
+        for archivo in archivos:
+            if archivo["name"] == name:
+                archivo_encontrado = archivo
+                break
+
+        if archivo_encontrado is None:
+            return {"error": "Archivo no encontrado"}
+
+        fecha_actual = datetime.now()
+        fecha_hora_str = fecha_actual.strftime("%Y-%m-%d %H:%M:%S")
+
+        archivo["content"] = newContent
+        archivo["size"] = self.calcularTamanoEnBytes(newContent) 
+        archivo["fechaModificacion"] = fecha_hora_str
+        
+        with open(self.BD_PATH, 'w') as file:
+            json.dump(data, file, indent=4)
+
+        return {"info": "Modificado con exito"}
 
     def isDefaultDirectory(self, name:str)->bool:
         return name in self.DEFAULTS_DIRECTORIES

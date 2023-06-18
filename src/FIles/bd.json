@@ -1,6 +1,26 @@
 {
     "users": [
         {
+            "username": "Prueba2",
+            "root": {
+                "name": "root",
+                "directories": [
+                    {
+                        "name": "personal",
+                        "directories": [],
+                        "files": []
+                    },
+                    {
+                        "name": "drive",
+                        "directories": [],
+                        "files": []
+                    }
+                ],
+                "files": []
+            },
+            "sizeDrive": "100"
+        },
+        {
             "username": "Prueba",
             "root": {
                 "name": "root",
@@ -13,8 +33,24 @@
                                 "directories": [
                                     {
                                         "name": "Anidado1.1",
-                                        "directories": [],
-                                        "files": []
+                                        "directories": [
+                                            {
+                                                "name": "DirEsteban",
+                                                "directories": [],
+                                                "files": []
+                                            }
+                                        ],
+                                        "files": [
+                                            {
+                                                "id": 10,
+                                                "name": "AnidadoPrueba.txt",
+                                                "content": "biabsiasdiasnd",
+                                                "size": 14,
+                                                "fechaCreacion": "2023-06-17 22:11:54",
+                                                "fechaModificacion": "2023-06-17 22:11:54",
+                                                "compartido": false
+                                            }
+                                        ]
                                     },
                                     {
                                         "name": "Anidado1.2",
@@ -42,10 +78,10 @@
                                     {
                                         "id": 4,
                                         "name": "aja.c",
-                                        "content": "sadsa",
-                                        "size": 5,
+                                        "content": "de nuevo modificasao",
+                                        "size": 20,
                                         "fechaCreacion": "2023-06-16 17:31:33",
-                                        "fechaModificacion": "2023-06-16 17:31:33",
+                                        "fechaModificacion": "2023-06-18 12:34:27",
                                         "compartido": false
                                     },
                                     {
@@ -101,10 +137,10 @@
                             {
                                 "id": 7,
                                 "name": "otro.c",
-                                "content": "asas",
-                                "size": 4,
+                                "content": "modificasao",
+                                "size": 11,
                                 "fechaCreacion": "2023-06-16 17:39:23",
-                                "fechaModificacion": "2023-06-16 17:39:23",
+                                "fechaModificacion": "2023-06-18 12:33:42",
                                 "compartido": false
                             }
                         ]
@@ -119,5 +155,5 @@
             }
         }
     ],
-    "id_counter": 9
+    "id_counter": 10
 }

@@ -133,6 +133,47 @@ def crearDirectorio():
     else:
         return render_template('drive.html', drive = arbol, jsonResultado = jsonResultado, stringDirectorio = stringDirectorio, usuario = nombreUsuario, infoArchivo = "", error = "Directorio creado con exito" )
     
+
+#en proceso
+@views.route("/compartirArchivo", methods = ['POST'])
+def compartiArchivo():
+    nombreUsuario = request.form ['usuario']
+    stringDirectorio = request.form['stringDirectorio']
+    arbol = request.form ['arbol']
+    jsonResultado = request.form['jsonResultado']
+    listaDirectorio = stringDirectorio.split('/')
+    arbol = obtenerJsonRelativo(listaDirectorio,nombreUsuario)[1]
+
+    usuarioDestino = request.form['nombreUsuarioCompartir']
+    archivoACompartir = request.form['nombreArchivoCompartir']
+
+    bd: FileManager = FileManager()
+    resultado =1  #llamar a la funion
+    if "error" in resultado:
+        return render_template('drive.html', drive = arbol, jsonResultado = jsonResultado,stringDirectorio = stringDirectorio, error = "Error al crear Directorio: nombre repetido", usuario = nombreUsuario, infoArchivo = ""   )
+    else:
+        return render_template('drive.html', drive = arbol, jsonResultado = jsonResultado, stringDirectorio = stringDirectorio, usuario = nombreUsuario, infoArchivo = "", error = "Directorio creado con exito" )
+    
+@views.route("/modificarArchivo", methods = ['POST'])
+def modificarArchivo():
+    nombreUsuario = request.form ['usuario']
+    stringDirectorio = request.form['stringDirectorio']
+    arbol = request.form ['arbol']
+    jsonResultado = request.form['jsonResultado']
+    listaDirectorio = stringDirectorio.split('/')
+    arbol = obtenerJsonRelativo(listaDirectorio,nombreUsuario)[1]
+
+    archivoMod = request.form['archivo']
+    newContent = request.form['contenidoArchivoModificado']
+
+    bd: FileManager = FileManager()
+    resultado = bd.modificarFile(nombreUsuario, stringDirectorio, archivoMod, newContent)
+    if "error" in resultado:
+        return render_template('drive.html', drive = arbol, jsonResultado = jsonResultado,stringDirectorio = stringDirectorio, error = "Error: no existe el archivo en el directorio actual", usuario = nombreUsuario, infoArchivo = ""   )
+    else:
+        return render_template('drive.html', drive = arbol, jsonResultado = jsonResultado, stringDirectorio = stringDirectorio, usuario = nombreUsuario, infoArchivo = "", error = "Modificado con exito" )
+    
+
 def generar_arbol(json, nivel=0):
     arbol = ''
     for directorio in json['directories']:

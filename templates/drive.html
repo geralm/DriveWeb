@@ -90,6 +90,19 @@ Ruta: root/{{ stringDirectorio }}
 
         <br>
         <br>
+        <h4>Modificar Archivo del directorio Actual: </h4>
+        <form action="\modificarArchivo" method="POST">
+            <input hidden name="arbol" value="{{ drive }}">
+            <input hidden name="usuario" value="{{ usuario }}">
+            <input hidden name="jsonResultado" value="{{ jsonResultado }}">
+            <input hidden name="stringDirectorio" value="{{ stringDirectorio }}">
+            <input type="text" name="archivo" data-dismiss="alert"placeholder="Nombre del archivo" required><br>
+            <textarea name="contenidoArchivoModificado" data-dismiss="alert" placeholder="Nuevo contenido del archivo" required rows="4" cols="85"></textarea><br>
+            <input  class="btn btn-success"  type="submit" value="Modificar Archivo">
+        </form>
+        
+        <br>
+        <br>
         <h4>Compartir Archivos: </h4>
         <form action="\compartirArchivo" method="POST">
             <input hidden name="arbol" value="{{ drive }}">
