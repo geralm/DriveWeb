@@ -92,15 +92,6 @@
                                         "fechaCreacion": "2023-06-16 17:32:56",
                                         "fechaModificacion": "2023-06-16 17:32:56",
                                         "compartido": false
-                                    },
-                                    {
-                                        "id": 9,
-                                        "name": "archivito.py",
-                                        "content": "jellou",
-                                        "size": 6,
-                                        "fechaCreacion": "2023-06-16 22:20:04",
-                                        "fechaModificacion": "2023-06-16 22:20:04",
-                                        "compartido": false
                                     }
                                 ]
                             },
@@ -132,15 +123,6 @@
                                 "size": 27,
                                 "fechaCreacion": "2023-06-16 17:30:07",
                                 "fechaModificacion": "2023-06-16 17:30:07",
-                                "compartido": false
-                            },
-                            {
-                                "id": 7,
-                                "name": "otro.c",
-                                "content": "modificasao",
-                                "size": 11,
-                                "fechaCreacion": "2023-06-16 17:39:23",
-                                "fechaModificacion": "2023-06-18 12:33:42",
                                 "compartido": false
                             }
                         ]

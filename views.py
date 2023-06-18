@@ -173,6 +173,47 @@ def modificarArchivo():
     else:
         return render_template('drive.html', drive = arbol, jsonResultado = jsonResultado, stringDirectorio = stringDirectorio, usuario = nombreUsuario, infoArchivo = "", error = "Modificado con exito" )
     
+@views.route("/eliminarArchivo", methods = ['POST'])
+def eliminarArchivo():
+    nombreUsuario = request.form ['usuario']
+    stringDirectorio = request.form['stringDirectorio']
+    arbol = request.form ['arbol']
+    jsonResultado = request.form['jsonResultado']
+    listaDirectorio = stringDirectorio.split('/')
+    
+
+    archivoMod = request.form['archivo']
+
+    bd: FileManager = FileManager()
+    resultado = bd.deleteFile(bd.getUser(nombreUsuario), stringDirectorio+"/"+archivoMod)
+
+    arbol = obtenerJsonRelativo(listaDirectorio,nombreUsuario)[1]
+    if "error" in resultado:
+        return render_template('drive.html', drive = arbol, jsonResultado = jsonResultado,stringDirectorio = stringDirectorio, error = "Error: no existe el archivo en el directorio actual", usuario = nombreUsuario, infoArchivo = ""   )
+    else:
+        return render_template('drive.html', drive = arbol, jsonResultado = jsonResultado, stringDirectorio = stringDirectorio, usuario = nombreUsuario, infoArchivo = "", error = "Eliminado con exito" )
+    
+
+@views.route("/eliminarDirectorio", methods = ['POST'])
+def eliminarDirectorio():
+    nombreUsuario = request.form ['usuario']
+    stringDirectorio = request.form['stringDirectorio']
+    arbol = request.form ['arbol']
+    jsonResultado = request.form['jsonResultado']
+    listaDirectorio = stringDirectorio.split('/')
+    
+
+    directorio = request.form['directorio']
+
+    bd: FileManager = FileManager()
+    resultado = bd.deleteDirectorio(bd.getUser(nombreUsuario), stringDirectorio+"/"+directorio)
+
+    arbol = obtenerJsonRelativo(listaDirectorio,nombreUsuario)[1]
+    if "error" in resultado:
+        return render_template('drive.html', drive = arbol, jsonResultado = jsonResultado,stringDirectorio = stringDirectorio, error = "Error: no existe el archivo en el directorio actual", usuario = nombreUsuario, infoArchivo = ""   )
+    else:
+        return render_template('drive.html', drive = arbol, jsonResultado = jsonResultado, stringDirectorio = stringDirectorio, usuario = nombreUsuario, infoArchivo = "", error = "Eliminado con exito" )
+ 
 
 def generar_arbol(json, nivel=0):
     arbol = ''

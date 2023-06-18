@@ -321,6 +321,26 @@ class FileManager():
 
         return {"info": "Modificado con exito"}
 
+    def deleteDirectorio(self, userData: dict, path: str) -> dict:
+        path = tuple(path.split("/"))
+        dest: dict = userData["root"]
+        for directory in path[:-1]:
+            directory_found:bool = False
+            for item in dest["directories"]:
+                if item.get("name") == directory:
+                    dest = item
+                    directory_found = True
+                    break
+            if not directory_found:
+                return {"error": "Directory not found"}
+            
+        for file in dest["directories"]:
+            if file.get("name") == path[-1]:
+                dest["directories"].remove(file)
+                self.__updateUser(userData)
+                return {"status": "File deleted successfully"}
+        return {"error": "File not found"}
+    
     def isDefaultDirectory(self, name:str)->bool:
         return name in self.DEFAULTS_DIRECTORIES
 # bd = BD()
