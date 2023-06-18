@@ -46,13 +46,14 @@ Ruta: root/{{ stringDirectorio }}
                     <input hidden name="usuario" value="{{ usuario }}">
                     <input hidden name="jsonResultado" value="{{ jsonResultado }}">
                     <input hidden name="stringDirectorio" value="{{ stringDirectorio }}">
+                    
                     <input  class="btn btn-success"  type="submit" value="Retroceder"><br><br>
                 </form>
             </div>
             
             <div class="form-insideContainer">
                 <h1>Ejecutar un comando: </h1>
-                <form  action="\enviarComando">
+                <form  action="\enviarComando" method="POST">
                     <input hidden name="usuario" value="{{ usuario }}">
                     <input hidden name="jsonResultado" value="{{ jsonResultado }}">
                     <input hidden name="stringDirectorio" value="{{ stringDirectorio }}">

@@ -79,7 +79,7 @@ def salirDirectorio():
     
 
 
-@views.route("/verArchivo", methods = ['POST', 'GET'])
+@views.route("/verArchivo", methods = ['POST'])
 def verArchivo():
     nombreUsuario = request.form ['usuario']
     arbol = request.form ['arbol']
@@ -133,11 +133,10 @@ def crearDirectorio():
     else:
         return render_template('drive.html', drive = arbol, jsonResultado = jsonResultado, stringDirectorio = stringDirectorio, usuario = nombreUsuario, infoArchivo = "", error = "Directorio creado con exito" )
     
-@views.route("/enviarComando", methods = ['POST'])
+@views.route("/enviarComando", methods = ['POST', 'GET'])
 def enviarComando():
     nombreUsuario = request.form ['usuario']
     stringDirectorio = request.form['stringDirectorio']
-    arbol = request.form ['arbol']
     jsonResultado = request.form['jsonResultado']
     comando = request.form['comando']
 
