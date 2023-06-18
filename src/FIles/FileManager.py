@@ -95,6 +95,8 @@ class FileManager():
         self.__updateUser(userData)
         return {"status": "File added successfully"}
     
+    
+    
     def addDirectory(self, userData: dict, directoryData: dict, path: str) -> dict:
         dest: dict = self.__searchDirectory(userData, path)
         if dest.get("error"):
@@ -256,8 +258,13 @@ class FileManager():
         }
     
     def shareFile(selfe, filename: str, username: str, path: str)->dict:
+        #obtener archivo
+        #cambiar compartido a True
+        #copiar Archivo en el drive del usuario
+        #1- exisite el usuario?
+        #2- no esta el archivo repetido?
         print ("en proceso")
-        
+
 
     def isDefaultDirectory(self, name:str)->bool:
         return name in self.DEFAULTS_DIRECTORIES
