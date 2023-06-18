@@ -148,12 +148,31 @@ def compartiArchivo():
     archivoACompartir = request.form['nombreArchivoCompartir']
 
     bd: FileManager = FileManager()
-    resultado =1  #llamar a la funion
+    resultado = bd.compartirFile(nombreUsuario, stringDirectorio, archivoACompartir, usuarioDestino)
     if "error" in resultado:
-        return render_template('drive.html', drive = arbol, jsonResultado = jsonResultado,stringDirectorio = stringDirectorio, error = "Error al crear Directorio: nombre repetido", usuario = nombreUsuario, infoArchivo = ""   )
+        return render_template('drive.html', drive = arbol, jsonResultado = jsonResultado,stringDirectorio = stringDirectorio, error = resultado["error"], usuario = nombreUsuario, infoArchivo = ""   )
     else:
-        return render_template('drive.html', drive = arbol, jsonResultado = jsonResultado, stringDirectorio = stringDirectorio, usuario = nombreUsuario, infoArchivo = "", error = "Directorio creado con exito" )
+        return render_template('drive.html', drive = arbol, jsonResultado = jsonResultado, stringDirectorio = stringDirectorio, usuario = nombreUsuario, infoArchivo = "", error = "Compartido con exito" )
     
+@views.route("/compartirDirectorio", methods = ['POST'])
+def compartirDirectorio():
+    nombreUsuario = request.form ['usuario']
+    stringDirectorio = request.form['stringDirectorio']
+    arbol = request.form ['arbol']
+    jsonResultado = request.form['jsonResultado']
+    listaDirectorio = stringDirectorio.split('/')
+    arbol = obtenerJsonRelativo(listaDirectorio,nombreUsuario)[1]
+
+    archivoACompartir = request.form['nombreDirectorioCompartir']
+    usuarioDestino = request.form['nombreUsuarioCompartir']
+
+    bd: FileManager = FileManager()
+    resultado = bd.compartirDirectorio(nombreUsuario, stringDirectorio, archivoACompartir, usuarioDestino)
+    if "error" in resultado:
+        return render_template('drive.html', drive = arbol, jsonResultado = jsonResultado,stringDirectorio = stringDirectorio, error = resultado["error"], usuario = nombreUsuario, infoArchivo = ""   )
+    else:
+        return render_template('drive.html', drive = arbol, jsonResultado = jsonResultado, stringDirectorio = stringDirectorio, usuario = nombreUsuario, infoArchivo = "", error = "Compartido con exito" )
+   
 @views.route("/modificarArchivo", methods = ['POST'])
 def modificarArchivo():
     nombreUsuario = request.form ['usuario']
