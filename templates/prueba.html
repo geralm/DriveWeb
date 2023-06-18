@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Explorador de Directorios</title>
+    <script>
+        function explorarDirectorio() {
+            var input = document.createElement('input');
+            input.type = 'file';
+            input.webkitdirectory = true;
+            input.multiple = false;
+
+            input.onchange = function(event) {
+                var directorio = event.target.files[0];
+                var ruta = directorio.path;
+
+                alert("Directorio seleccionado: " + ruta);
+            };
+
+            input.click();
+        }
+    </script>
+</head>
+<body>
+    <h1>Explorador de Directorios</h1>
+    <button onclick="explorarDirectorio()">Explorar</button>
+</body>
+</html>

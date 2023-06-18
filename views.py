@@ -133,6 +133,24 @@ def crearDirectorio():
     else:
         return render_template('drive.html', drive = arbol, jsonResultado = jsonResultado, stringDirectorio = stringDirectorio, usuario = nombreUsuario, infoArchivo = "", error = "Directorio creado con exito" )
     
+@views.route("/enviarComando", methods = ['POST'])
+def enviarComando():
+    nombreUsuario = request.form ['usuario']
+    stringDirectorio = request.form['stringDirectorio']
+    arbol = request.form ['arbol']
+    jsonResultado = request.form['jsonResultado']
+    comando = request.form['comando']
+
+    print("Comando: ", comando)
+    bd: FileManager = FileManager()
+    listaDirectorio = stringDirectorio.split('/')
+    arbol = obtenerJsonRelativo(listaDirectorio,nombreUsuario)[1]
+
+    return render_template('drive.html', drive = arbol, jsonResultado = jsonResultado,stringDirectorio = stringDirectorio, error = "Error al crear Archivo: nombre repetido", usuario = nombreUsuario, infoArchivo = ""   )
+    
+
+#Funciones auxiliares
+
 def generar_arbol(json, nivel=0):
     arbol = ''
     for directorio in json['directories']:
@@ -156,3 +174,4 @@ def obtenerJsonRelativo(listaDirectorios,nombreUsuario):
             return (False,arbol)
     arbol = generar_arbol(directorioActual)
     return (True,arbol)
+

@@ -117,6 +117,26 @@
                 ],
                 "files": []
             }
+        },
+        {
+            "username": "Esteban",
+            "root": {
+                "name": "root",
+                "directories": [
+                    {
+                        "name": "personal",
+                        "directories": [],
+                        "files": []
+                    },
+                    {
+                        "name": "drive",
+                        "directories": [],
+                        "files": []
+                    }
+                ],
+                "files": []
+            },
+            "sizeDrive": "10"
         }
     ],
     "id_counter": 9

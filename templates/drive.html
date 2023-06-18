@@ -32,21 +32,36 @@ Ruta: root/{{ stringDirectorio }}
 
         <br>
         <br>
-        <h4>Moverse: </h4>
-        <form action="\entrarDirectorio" method="POST">
-            <input hidden name="usuario" value="{{ usuario }}">
-            <input hidden name="jsonResultado" value="{{ jsonResultado }}">
-            <input hidden name="stringDirectorio" value="{{ stringDirectorio }}">
-            <input type="text" name="directorio" data-dismiss="alert"placeholder="Nombre del directorio" required><br>
-            <input  class="btn btn-success"  type="submit" value="Entrar"><br>
-        </form>
-        <form action="\salirDirectorio" method="POST">
-            <input hidden name="usuario" value="{{ usuario }}">
-            <input hidden name="jsonResultado" value="{{ jsonResultado }}">
-            <input hidden name="stringDirectorio" value="{{ stringDirectorio }}">
-            <input  class="btn btn-success"  type="submit" value="Retroceder"><br><br>
-        </form>
-
+        <div class= "form_container">
+            <div class="form-insideContainer">
+                <h4>Moverse: </h4>
+                <form  action="\entrarDirectorio" method="POST">
+                    <input hidden name="usuario" value="{{ usuario }}">
+                    <input hidden name="jsonResultado" value="{{ jsonResultado }}">
+                    <input hidden name="stringDirectorio" value="{{ stringDirectorio }}">
+                    <input type="text" name="directorio" data-dismiss="alert"placeholder="Nombre del directorio" required><br>
+                    <input  class="btn btn-success"  type="submit" value="Entrar"><br>
+                </form>
+                <form action="\salirDirectorio" method="POST">
+                    <input hidden name="usuario" value="{{ usuario }}">
+                    <input hidden name="jsonResultado" value="{{ jsonResultado }}">
+                    <input hidden name="stringDirectorio" value="{{ stringDirectorio }}">
+                    <input  class="btn btn-success"  type="submit" value="Retroceder"><br><br>
+                </form>
+            </div>
+            
+            <div class="form-insideContainer">
+                <h1>Ejecutar un comando: </h1>
+                <form  action="\enviarComando">
+                    <input hidden name="usuario" value="{{ usuario }}">
+                    <input hidden name="jsonResultado" value="{{ jsonResultado }}">
+                    <input hidden name="stringDirectorio" value="{{ stringDirectorio }}">
+                    <input type="text" name="comando" data-dismiss="alert"placeholder="Comando" required><br>
+                    <input  class="btn btn-success"  type="submit" value="Enviar Comando"><br>
+                </form>
+            </div>
+            
+        </div>
   
         <h4>Ver propiedades y contenido de Archivo: </h4>
         <form action="\verArchivo" method="POST">
