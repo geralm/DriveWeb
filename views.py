@@ -291,3 +291,4 @@ def obtenerJsonRelativo(listaDirectorios,nombreUsuario):
             return (False,arbol)
     arbol = generar_arbol(directorioActual)
     return (True,arbol)
+
