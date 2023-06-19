@@ -240,21 +240,26 @@ def download():
     return "Descargar"
 @views.route("/copiar", methods = ['POST'])
 def copiar():
+    usuario = request.form['usuario']
+    jsonResultado = request.form['jsonResultado']
+    stringDirectorio = request.form['stringDirectorio']
+    bd: FileManager = FileManager()
+    rutaArchivo = request.form.get('rutaDirectorio')
+    print("Ruta del archivo: ", rutaArchivo)
+    print("stringDirectorio: ", stringDirectorio)
     return "Copiar"
-@views.route("/load", methods = ['POST'])
+@views.route("/load", methods=['POST'])
 def load():
     usuario = request.form['usuario']
-    json_resultado = request.form['jsonResultado']
-    string_directorio = request.form['stringDirectorio']
-    ruta_archivo = request.form.get('rutaArchivo')
+    jsonResultado = request.form['jsonResultado']
+    stringDirectorio = request.form['stringDirectorio']
+    rutaArchivo = request.form.get('rutaArchivo')
     
     # Realizar acciones con los datos aquí
     # Por ejemplo, guardar la ruta del archivo en el servidor
-    print("Ruta del archivo:", ruta_archivo)
-    # Realizar acciones con la ruta del archivo aquí
-    print("Ruta del archivo:", ruta_archivo)
+    print("Ruta del archivo:", rutaArchivo)
+    
     return "load"
-
 """
 Funciones del copy
 """

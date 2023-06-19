@@ -482,25 +482,80 @@ class FileManager():
     
     def isDefaultDirectory(self, name:str)->bool:
         return name in self.DEFAULTS_DIRECTORIES
-    def cargarArchivo(self, realpath, username, virtualPath, ):
-        print(self.__getFileInfo(realpath))
-
-        return {"inf"}
-    def __getFileInfo(self, realpath) -> dict:
-        if os.path.isfile(realpath):
-            fileContent:str  = ""
-            with open(realpath, 'r') as file:
-                fileContent = file.read()
-            fileInfo:dict = self.getFileProperties(realpath)
-            fileInfo["content"] = fileContent
-            return fileInfo
+    def copyVV (self, username:str, originalPath, destPath):
+        userdata: dict = self.getUser(username)
+        if "error" in userdata:
+            return userdata
+        splitOriginalpath = originalPath.split('/')
+        if self.isFile(splitOriginalpath[-1]):
+            #Copiar archivo
+            directorypath:str = '/'.join(splitOriginalpath[:-1])
+            fileData: dict = self.__searchFileSinParseo(username, directorypath, splitOriginalpath[-1])
+            return self.addFile(userdata, fileData, destPath)
+            
         else:
-            return {"error": "El archivo no existe"}
+            #Copiar directorio
+            directoryInfo:dict = self.__searchDirectory(userdata, originalPath)
+            if "error" in directoryInfo:
+                return directoryInfo
+            #destDirectoryInfo:dict = self.__searchDirectory(userdata, destPath)
+            
+            return self.addDirectory(userdata, directoryInfo, destPath)
+        
+    def isFile(self, path:str)->bool:
+        return path.find('.txt') != -1       
+    def __searchFileSinParseo(self, username:str, path: str, name: str) -> dict:
+        listaDirectorio = path.split('/')
+        lista_directorios = listaDirectorio.copy()
 
+        # Cargar el JSON en un diccionario
+        with open(self.BD_PATH) as file:
+            data = json.load(file)
+
+        # Buscar el usuario por el nombre de usuario
+        usuarios = data["users"]
+        usuario_encontrado = None
+        for usuario in usuarios:
+            if usuario["username"] == username:
+                usuario_encontrado = usuario
+                break
+
+        if usuario_encontrado is None:
+            return {"error": "Usuario no encontrado"}
+        
+        # Buscar los directorios en la estructura del usuario
+        directorios = usuario_encontrado["root"]["directories"]
+        for nombre_directorio in lista_directorios:
+            directorio_encontrado = None
+            for directorio in directorios:
+                if directorio["name"] == nombre_directorio:
+                    directorio_encontrado = directorio
+                    directorios = directorio["directories"]
+                    files = directorio["files"]
+                    break
+
+            if directorio_encontrado is None:
+                return {"error": "Directorio no encontrado "+nombre_directorio}
+            
+        # Buscar el archivo en el último directorio
+        archivos = files
+        archivo_encontrado = None
+        for archivo in archivos:
+            if archivo["name"] == name:
+                archivo_encontrado = archivo
+                break
+
+        if archivo_encontrado is None:
+            return {"error": "Archivo no encontrado"}
+        return archivo_encontrado
+    
 
 # bd = BD()
 bd: FileManager = FileManager()
-bd.cargarArchivo(r"c:\Users\Esteb\Documents\ProyectoDriveTest\test.txt", "test", "personal")
+
+
+#print(bd.copyVV("Prueba", "personal/Hola.txt", "personal/Anidado1/Anidado1.1/DirEsteban"))
+
 #print (bd.searchFile("Prueba", "personal/Anidado1","esoooo.txt"))
 #print(bd.createUser("Prueba",100))
 #print(bd.addFile(bd.getUser("Prueba"), bd.createFile("Filetest", "Hola, esto es una prueba"), "personal"))

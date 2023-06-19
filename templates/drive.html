@@ -73,7 +73,7 @@ Ruta: root/{{ stringDirectorio }}
                     <input hidden name="usuario" value="{{ usuario }}">
                     <input hidden name="jsonResultado" value="{{ jsonResultado }}">
                     <input hidden name="stringDirectorio" value="{{ stringDirectorio }}">
-                    <input type="text" name="Ruta" data-dismiss="alert"placeholder="Ruta" required>
+                    <input type="text" name="rutaDirectorio" data-dismiss="alert"placeholder="{{rutaDirectorio}}}" required>
                     <input  class="btn btn-success"  type="submit" value="Copiar VV"><br>
                 </form>
                 <form action="\download" method="POST">
@@ -85,11 +85,11 @@ Ruta: root/{{ stringDirectorio }}
                     <input  class="btn btn-success"  type="submit" value="download">
 
                 </form>
-                <form id="cargarArchivo"action="\load" method="POST">
+                <form id="cargarArchivo" action="/load" method="POST">
                     <input hidden name="usuario" value="{{ usuario }}">
                     <input hidden name="jsonResultado" value="{{ jsonResultado }}">
                     <input hidden name="stringDirectorio" value="{{ stringDirectorio }}">                    
-                    <input class="btn btn-success" type="button" value="load" onclick="abrirExploradorArchivos()">
+                    <input class="btn btn-success" type="file" value="load" onchange="abrirExploradorArchivos()">
                 </form>
                 <script>
                     function abrirExploradorArchivos() {
