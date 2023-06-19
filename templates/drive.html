@@ -68,14 +68,7 @@ Ruta: root/{{ stringDirectorio }}
                 </form>
             </div>
             <div class="form-insideContainer">
-                <h1>Digite la ruta virtual: </h1>
-                <form  action="\copiar" method="POST">
-                    <input hidden name="usuario" value="{{ usuario }}">
-                    <input hidden name="jsonResultado" value="{{ jsonResultado }}">
-                    <input hidden name="stringDirectorio" value="{{ stringDirectorio }}">
-                    <input type="text" name="rutaDirectorio" data-dismiss="alert"placeholder="{{rutaDirectorio}}}" required>
-                    <input  class="btn btn-success"  type="submit" value="Copiar VV"><br>
-                </form>
+                <h1>Nombre del archivo</h1>
                 <form action="\download" method="POST">
                     <input hidden name="usuario" value="{{ usuario }}">
                     <input hidden name="jsonResultado" value="{{ jsonResultado }}">
@@ -85,7 +78,7 @@ Ruta: root/{{ stringDirectorio }}
                     <input  class="btn btn-success"  type="submit" value="download">
 
                 </form>
-                <form id="cargarArchivo" action="/load" method="POST">
+                <form id="cargarArchivo" action="\load" method="POST">
                     <input hidden name="usuario" value="{{ usuario }}">
                     <input hidden name="jsonResultado" value="{{ jsonResultado }}">
                     <input hidden name="stringDirectorio" value="{{ stringDirectorio }}">                    

@@ -99,6 +99,45 @@
             "sizeDrive": "100"
         },
         {
+            "username": "Compartido",
+            "root": {
+                "name": "root",
+                "directories": [
+                    {
+                        "name": "personal",
+                        "directories": [],
+                        "files": []
+                    },
+                    {
+                        "name": "drive",
+                        "directories": [],
+                        "files": [
+                            {
+                                "id": 12,
+                                "name": "Hola.txt",
+                                "content": "Hola ya no soy un txt",
+                                "size": 21,
+                                "fechaCreacion": "2023-06-18 22:54:52",
+                                "fechaModificacion": "2023-06-18 22:58:20",
+                                "compartido": true
+                            },
+                            {
+                                "id": 13,
+                                "name": "adios.txt",
+                                "content": "Modificando esta mierda",
+                                "size": 23,
+                                "fechaCreacion": "2023-06-18 23:00:45",
+                                "fechaModificacion": "2023-06-18 23:01:27",
+                                "compartido": true
+                            }
+                        ]
+                    }
+                ],
+                "files": []
+            },
+            "sizeDrive": "20"
+        },
+        {
             "username": "Prueba",
             "root": {
                 "name": "root",
@@ -147,9 +186,34 @@
                                                 "name": "utimojiji",
                                                 "directories": [],
                                                 "files": []
+                                            },
+                                            {
+                                                "name": "DirEsteban",
+                                                "directories": [],
+                                                "files": [
+                                                    {
+                                                        "id": 2,
+                                                        "name": "Hola.txt",
+                                                        "content": "primera prueba desde la pag",
+                                                        "size": 27,
+                                                        "fechaCreacion": "2023-06-16 17:29:41",
+                                                        "fechaModificacion": "2023-06-16 17:29:41",
+                                                        "compartido": false
+                                                    }
+                                                ]
                                             }
                                         ],
-                                        "files": []
+                                        "files": [
+                                            {
+                                                "id": 13,
+                                                "name": "adios.txt",
+                                                "content": "soy un adios txt",
+                                                "size": 16,
+                                                "fechaCreacion": "2023-06-18 23:00:45",
+                                                "fechaModificacion": "2023-06-18 23:00:45",
+                                                "compartido": false
+                                            }
+                                        ]
                                     },
                                     {
                                         "name": "PruebaPagina",
@@ -193,26 +257,32 @@
                                 "name": "PruebaPagina",
                                 "directories": [],
                                 "files": []
+                            },
+                            {
+                                "name": "DirEsteban",
+                                "directories": [],
+                                "files": [
+                                    {
+                                        "id": 2,
+                                        "name": "Hola.txt",
+                                        "content": "primera prueba desde la pag",
+                                        "size": 27,
+                                        "fechaCreacion": "2023-06-16 17:29:41",
+                                        "fechaModificacion": "2023-06-16 17:29:41",
+                                        "compartido": false
+                                    }
+                                ]
                             }
                         ],
                         "files": [
                             {
-                                "id": 2,
-                                "name": "Hola.txt",
-                                "content": "primera prueba desde la pag",
-                                "size": 27,
-                                "fechaCreacion": "2023-06-16 17:29:41",
-                                "fechaModificacion": "2023-06-16 17:29:41",
-                                "compartido": false
-                            },
-                            {
                                 "id": 3,
                                 "name": "Hola.txt",
-                                "content": "primera prueba desde la pag",
-                                "size": 27,
+                                "content": "Modificando este condenado",
+                                "size": 26,
                                 "fechaCreacion": "2023-06-16 17:30:07",
-                                "fechaModificacion": "2023-06-16 17:30:07",
-                                "compartido": false
+                                "fechaModificacion": "2023-06-18 22:41:04",
+                                "compartido": true
                             },
                             {
                                 "id": 11,
@@ -222,6 +292,15 @@
                                 "fechaCreacion": "2023-06-18 21:24:26",
                                 "fechaModificacion": "2023-06-18 21:28:25",
                                 "compartido": true
+                            },
+                            {
+                                "id": 13,
+                                "name": "adios.txt",
+                                "content": "soy un adios txt",
+                                "size": 16,
+                                "fechaCreacion": "2023-06-18 23:00:45",
+                                "fechaModificacion": "2023-06-18 23:00:45",
+                                "compartido": false
                             }
                         ]
                     },
@@ -315,14 +394,22 @@
                                 "fechaCreacion": "2023-06-18 21:24:26",
                                 "fechaModificacion": "2023-06-18 21:24:26",
                                 "compartido": true
+                            },
+                            {
+                                "id": 12,
+                                "name": "Hola.txt",
+                                "content": "Hola se supone que esta si funciona",
+                                "size": 35,
+                                "fechaCreacion": "2023-06-18 22:54:52",
+                                "fechaModificacion": "2023-06-18 22:58:16",
+                                "compartido": true
                             }
                         ]
-
                     }
                 ],
                 "files": []
             }
         }
     ],
-    "id_counter": 11
+    "id_counter": 13
 }

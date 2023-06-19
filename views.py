@@ -238,15 +238,22 @@ Funciones del copy
 @views.route("/download", methods = ['POST'])
 def download():
     return "Descargar"
-@views.route("/copiar", methods = ['POST'])
+@views.route("/copiarArchivo", methods = ['POST'])
 def copiar():
-    usuario = request.form['usuario']
-    jsonResultado = request.form['jsonResultado']
+    nombreUsuario = request.form ['usuario']
+    arbol = request.form ['arbol']
+    nombreArchivo = request.form['nombreArchivo']
+    rutadestino: str = request.form['ruta']
     stringDirectorio = request.form['stringDirectorio']
+    jsonResultado = request.form['jsonResultado']
     bd: FileManager = FileManager()
-    rutaArchivo = request.form.get('rutaDirectorio')
-    print("Ruta del archivo: ", rutaArchivo)
-    print("stringDirectorio: ", stringDirectorio)
+    resultado: dict = bd.copyVV(nombreUsuario, stringDirectorio+"/"+nombreArchivo, rutadestino)
+    listaDirectorio = stringDirectorio.split('/')
+    arbol = obtenerJsonRelativo(listaDirectorio,nombreUsuario)[1]
+    if "error" in resultado:
+        return render_template('drive.html', drive = arbol, jsonResultado = jsonResultado,stringDirectorio = stringDirectorio, error = resultado["error"], usuario = nombreUsuario, infoArchivo = ""   )
+    else:
+        return render_template('drive.html', drive = arbol, jsonResultado = jsonResultado, stringDirectorio = stringDirectorio, usuario = nombreUsuario, infoArchivo = "" )
     return "Copiar"
 @views.route("/load", methods=['POST'])
 def load():
@@ -260,9 +267,7 @@ def load():
     print("Ruta del archivo:", rutaArchivo)
     
     return "load"
-"""
-Funciones del copy
-"""
+
 def generar_arbol(json, nivel=0):
     arbol = ''
     for directorio in json['directories']:

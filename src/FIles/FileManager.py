@@ -317,7 +317,7 @@ class FileManager():
         archivo["fechaModificacion"] = fecha_hora_str
         
         print (archivo["compartido"])
-        if(archivo["compartido"]=="true"):
+        if(archivo["compartido"]==True):
             updated_json_data = self.replace_file_info(data, archivo["id"], archivo)
             json.dumps(updated_json_data, indent=4)
 
@@ -490,7 +490,7 @@ class FileManager():
 
     
         
-    def replace_file_info(json_data, file_id, new_info):
+    def replace_file_info(self, json_data, file_id, new_info):
         print("entra ")
         for user in json_data["users"]:
             root = user["root"]
@@ -501,9 +501,8 @@ class FileManager():
                 stack.extend(current_dir["directories"])
 
                 for file in current_dir["files"]:
-                    print(file["id"] + " , " + file_id)
                     if file["id"] == file_id:
-                        
+
                         file.update(new_info)
 
         return json_data
