@@ -316,6 +316,11 @@ class FileManager():
         archivo["size"] = self.calcularTamanoEnBytes(newContent) 
         archivo["fechaModificacion"] = fecha_hora_str
         
+        print (archivo["compartido"])
+        if(archivo["compartido"]=="true"):
+            updated_json_data = self.replace_file_info(data, archivo["id"], archivo)
+            json.dumps(updated_json_data, indent=4)
+
         with open(self.BD_PATH, 'w') as file:
             json.dump(data, file, indent=4)
 
@@ -482,6 +487,26 @@ class FileManager():
     
     def isDefaultDirectory(self, name:str)->bool:
         return name in self.DEFAULTS_DIRECTORIES
+    
+        
+    def replace_file_info(json_data, file_id, new_info):
+        print("entra ")
+        for user in json_data["users"]:
+            root = user["root"]
+            stack = [root]
+
+            while stack:
+                current_dir = stack.pop()
+                stack.extend(current_dir["directories"])
+
+                for file in current_dir["files"]:
+                    print(file["id"] + " , " + file_id)
+                    if file["id"] == file_id:
+                        
+                        file.update(new_info)
+
+        return json_data
+
 # bd = BD()
 bd: FileManager = FileManager()
 #print (bd.searchFile("Prueba", "personal/Anidado1","esoooo.txt"))
