@@ -232,6 +232,24 @@ def eliminarDirectorio():
         return render_template('drive.html', drive = arbol, jsonResultado = jsonResultado,stringDirectorio = stringDirectorio, error = "Error: no existe el archivo en el directorio actual", usuario = nombreUsuario, infoArchivo = ""   )
     else:
         return render_template('drive.html', drive = arbol, jsonResultado = jsonResultado, stringDirectorio = stringDirectorio, usuario = nombreUsuario, infoArchivo = "", error = "Eliminado con exito" )
+
+
+@views.route("/MoverArchivo", methods = ['POST'])
+def moverArchivo():
+    nombreUsuario = request.form ['usuario']
+    stringDirectorio = request.form['stringDirectorio']
+    arbol = request.form ['arbol']
+    jsonResultado = request.form['jsonResultado']
+    listaDirectorio = stringDirectorio.split('/')
+
+    archivo = request.form['archivo']
+
+    # bd: FileManager = FileManager()
+    # resultado = bd.deleteDirectorio(bd.getUser(nombreUsuario), stringDirectorio+"/"+directorio)
+
+
+    return
+
 """
 Funciones del copy
 """
