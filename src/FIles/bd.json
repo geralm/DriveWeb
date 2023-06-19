@@ -409,7 +409,80 @@
                 ],
                 "files": []
             }
+        },
+        {
+            "username": "pedro",
+            "root": {
+                "name": "root",
+                "directories": [
+                    {
+                        "name": "personal",
+                        "directories": [],
+                        "files": [
+                            {
+                                "id": 15,
+                                "name": "ABC.txt",
+                                "content": "ABCDARIO",
+                                "size": 8,
+                                "fechaCreacion": "2023-06-19 01:19:12",
+                                "fechaModificacion": "2023-06-19 01:19:12",
+                                "compartido": false
+                            },
+                            {
+                                "id": 16,
+                                "name": "CDE.txt",
+                                "content": "CDEMENTO",
+                                "size": 8,
+                                "fechaCreacion": "2023-06-19 01:19:30",
+                                "fechaModificacion": "2023-06-19 01:19:30",
+                                "compartido": false
+                            },
+                            {
+                                "id": 18,
+                                "name": "Papa.txt",
+                                "content": "ElDiablou",
+                                "size": 9,
+                                "fechaCreacion": "2023-06-19 01:20:38",
+                                "fechaModificacion": "2023-06-19 01:20:38",
+                                "compartido": false
+                            }
+                        ]
+                    },
+                    {
+                        "name": "drive",
+                        "directories": [
+                            {
+                                "name": "Contrasenas",
+                                "directories": [],
+                                "files": []
+                            }
+                        ],
+                        "files": [
+                            {
+                                "id": 17,
+                                "name": "KLM.txt",
+                                "content": "DCD",
+                                "size": 3,
+                                "fechaCreacion": "2023-06-19 01:20:17",
+                                "fechaModificacion": "2023-06-19 01:20:17",
+                                "compartido": false
+                            },
+                            {
+                                "id": 18,
+                                "name": "Papa.txt",
+                                "content": "ElDiablou",
+                                "size": 9,
+                                "fechaCreacion": "2023-06-19 01:20:38",
+                                "fechaModificacion": "2023-06-19 01:20:38",
+                                "compartido": false
+                            }
+                        ]
+                    }
+                ],
+                "files": []
+            },
+            "sizeDrive": "50"
         }
     ],
-    "id_counter": 13
+    "id_counter": 18
 }
