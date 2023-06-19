@@ -482,8 +482,25 @@ class FileManager():
     
     def isDefaultDirectory(self, name:str)->bool:
         return name in self.DEFAULTS_DIRECTORIES
+    def cargarArchivo(self, realpath, username, virtualPath, ):
+        print(self.__getFileInfo(realpath))
+
+        return {"inf"}
+    def __getFileInfo(self, realpath) -> dict:
+        if os.path.isfile(realpath):
+            fileContent:str  = ""
+            with open(realpath, 'r') as file:
+                fileContent = file.read()
+            fileInfo:dict = self.getFileProperties(realpath)
+            fileInfo["content"] = fileContent
+            return fileInfo
+        else:
+            return {"error": "El archivo no existe"}
+
+
 # bd = BD()
 bd: FileManager = FileManager()
+bd.cargarArchivo(r"c:\Users\Esteb\Documents\ProyectoDriveTest\test.txt", "test", "personal")
 #print (bd.searchFile("Prueba", "personal/Anidado1","esoooo.txt"))
 #print(bd.createUser("Prueba",100))
 #print(bd.addFile(bd.getUser("Prueba"), bd.createFile("Filetest", "Hola, esto es una prueba"), "personal"))

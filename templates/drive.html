@@ -32,31 +32,91 @@ Ruta: root/{{ stringDirectorio }}
 
         <br>
         <br>
-        <h4>Moverse: </h4>
-        <form action="\entrarDirectorio" method="POST">
-            <input hidden name="usuario" value="{{ usuario }}">
-            <input hidden name="jsonResultado" value="{{ jsonResultado }}">
-            <input hidden name="stringDirectorio" value="{{ stringDirectorio }}">
-            <input type="text" name="directorio" data-dismiss="alert"placeholder="Nombre del directorio" required><br>
-            <input  class="btn btn-success"  type="submit" value="Entrar"><br>
-        </form>
-        <form action="\salirDirectorio" method="POST">
-            <input hidden name="usuario" value="{{ usuario }}">
-            <input hidden name="jsonResultado" value="{{ jsonResultado }}">
-            <input hidden name="stringDirectorio" value="{{ stringDirectorio }}">
-            <input  class="btn btn-success"  type="submit" value="Retroceder"><br><br>
-        </form>
+        <div class= "form_container">
+            <div class="form-insideContainer">
+                <h4>Moverse: </h4>
+                <form  action="\entrarDirectorio" method="POST">
+                    <input hidden name="usuario" value="{{ usuario }}">
+                    <input hidden name="jsonResultado" value="{{ jsonResultado }}">
+                    <input hidden name="stringDirectorio" value="{{ stringDirectorio }}">
+                    <input type="text" name="directorio" data-dismiss="alert"placeholder="Nombre del directorio" required><br>
+                    <input  class="btn btn-success"  type="submit" value="Entrar"><br>
+                </form>
+                <form action="\salirDirectorio" method="POST">
+                    <input hidden name="usuario" value="{{ usuario }}">
+                    <input hidden name="jsonResultado" value="{{ jsonResultado }}">
+                    <input hidden name="stringDirectorio" value="{{ stringDirectorio }}">
+                    
+                    <input  class="btn btn-success"  type="submit" value="Retroceder"><br><br>
+                </form>
+            </div>
+            
+            
+            
+        </div>
 
-  
-        <h4>Ver propiedades y contenido de Archivo: </h4>
-        <form action="\verArchivo" method="POST">
-            <input hidden name="arbol" value="{{ drive }}">
-            <input hidden name="usuario" value="{{ usuario }}">
-            <input hidden name="jsonResultado" value="{{ jsonResultado }}">
-            <input hidden name="stringDirectorio" value="{{ stringDirectorio }}">
-            <input type="text" name="archivo" data-dismiss="alert"placeholder="Nombre del archivo" required><br>
-            <input  class="btn btn-success"  type="submit" value="Ver Archivo">
-        </form>
+        <div class = "form_container">
+            <div class="form-insideContainer">
+                <h4>Ver propiedades y contenido de Archivo: </h4>
+                <form action="\verArchivo" method="POST">
+                    <input hidden name="arbol" value="{{ drive }}">
+                    <input hidden name="usuario" value="{{ usuario }}">
+                    <input hidden name="jsonResultado" value="{{ jsonResultado }}">
+                    <input hidden name="stringDirectorio" value="{{ stringDirectorio }}">
+                    <input type="text" name="archivo" data-dismiss="alert"placeholder="Nombre del archivo" required><br>
+                    <input  class="btn btn-success"  type="submit" value="Ver Archivo">
+                </form>
+            </div>
+            <div class="form-insideContainer">
+                <h1>Digite la ruta virtual: </h1>
+                <form  action="\copiar" method="POST">
+                    <input hidden name="usuario" value="{{ usuario }}">
+                    <input hidden name="jsonResultado" value="{{ jsonResultado }}">
+                    <input hidden name="stringDirectorio" value="{{ stringDirectorio }}">
+                    <input type="text" name="Ruta" data-dismiss="alert"placeholder="Ruta" required>
+                    <input  class="btn btn-success"  type="submit" value="Copiar VV"><br>
+                </form>
+                <form action="\download" method="POST">
+                    <input hidden name="usuario" value="{{ usuario }}">
+                    <input hidden name="jsonResultado" value="{{ jsonResultado }}">
+                    <input hidden name="stringDirectorio" value="{{ stringDirectorio }}">
+                    <input type="text" name="nombreArchivo" data-dismiss="alert"placeholder="Nombre archivo" required>
+                    
+                    <input  class="btn btn-success"  type="submit" value="download">
+
+                </form>
+                <form id="cargarArchivo"action="\load" method="POST">
+                    <input hidden name="usuario" value="{{ usuario }}">
+                    <input hidden name="jsonResultado" value="{{ jsonResultado }}">
+                    <input hidden name="stringDirectorio" value="{{ stringDirectorio }}">                    
+                    <input class="btn btn-success" type="button" value="load" onclick="abrirExploradorArchivos()">
+                </form>
+                <script>
+                    function abrirExploradorArchivos() {
+                        const input = document.createElement('input');
+                        input.type = 'file';
+                        input.accept = '.txt';
+                        input.onchange = function(event) {
+                            const archivoSeleccionado = event.target.files[0];
+                            const rutaArchivo = URL.createObjectURL(archivoSeleccionado);
+                            // Aquí puedes realizar acciones adicionales con la ruta del archivo
+                            console.log("Ruta del archivo:", rutaArchivo);
+                            // Agregar la ruta del archivo al formulario antes de enviarlo
+                            const formulario = document.getElementById('cargarArchivo');
+                            const rutaArchivoInput = document.createElement('input');
+                            rutaArchivoInput.type = 'hidden';
+                            rutaArchivoInput.name = 'rutaArchivo';
+                            rutaArchivoInput.value = rutaArchivo;
+                            formulario.appendChild(rutaArchivoInput);
+                            // Enviar el formulario
+                            formulario.submit();
+                        };
+                        input.click();
+                    }
+                </script>
+            </div>
+        </div>
+        
 
         <textarea readonly id="infoArchivoTextArea" name="infoArchivoTextArea" rows="15" cols="85">
 {{ infoArchivo }}
