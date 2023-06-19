@@ -70,11 +70,12 @@ Ruta: root/{{ stringDirectorio }}
             <div class="form-insideContainer">
                 <h1>Nombre del archivo</h1>
                 <form action="\download" method="POST">
+                    <input hidden name="arbol" value="{{ drive }}">
                     <input hidden name="usuario" value="{{ usuario }}">
                     <input hidden name="jsonResultado" value="{{ jsonResultado }}">
                     <input hidden name="stringDirectorio" value="{{ stringDirectorio }}">
                     <input type="text" name="nombreArchivo" data-dismiss="alert"placeholder="Nombre archivo" required>
-                    
+                    <input type="text" name="rutaDestino"data-dismiss="alert"placeholder="Ruta real" required >
                     <input  class="btn btn-success"  type="submit" value="download">
 
                 </form>
@@ -82,31 +83,9 @@ Ruta: root/{{ stringDirectorio }}
                     <input hidden name="usuario" value="{{ usuario }}">
                     <input hidden name="jsonResultado" value="{{ jsonResultado }}">
                     <input hidden name="stringDirectorio" value="{{ stringDirectorio }}">                    
-                    <input class="btn btn-success" type="file" value="load" onchange="abrirExploradorArchivos()">
+                    <input class="btn btn-success" type="submit" value="load" id="btnCargarArchivo">
                 </form>
-                <script>
-                    function abrirExploradorArchivos() {
-                        const input = document.createElement('input');
-                        input.type = 'file';
-                        input.accept = '.txt';
-                        input.onchange = function(event) {
-                            const archivoSeleccionado = event.target.files[0];
-                            const rutaArchivo = URL.createObjectURL(archivoSeleccionado);
-                            // Aquí puedes realizar acciones adicionales con la ruta del archivo
-                            console.log("Ruta del archivo:", rutaArchivo);
-                            // Agregar la ruta del archivo al formulario antes de enviarlo
-                            const formulario = document.getElementById('cargarArchivo');
-                            const rutaArchivoInput = document.createElement('input');
-                            rutaArchivoInput.type = 'hidden';
-                            rutaArchivoInput.name = 'rutaArchivo';
-                            rutaArchivoInput.value = rutaArchivo;
-                            formulario.appendChild(rutaArchivoInput);
-                            // Enviar el formulario
-                            formulario.submit();
-                        };
-                        input.click();
-                    }
-                </script>
+                
             </div>
         </div>
         

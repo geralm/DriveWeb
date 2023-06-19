@@ -237,7 +237,20 @@ Funciones del copy
 """
 @views.route("/download", methods = ['POST'])
 def download():
-    return "Descargar"
+    nombreUsuario = request.form ['usuario']
+    arbol = request.form ['arbol']
+    nombreArchivo = request.form['nombreArchivo']
+    stringDirectorio = request.form['stringDirectorio']
+    jsonResultado = request.form['jsonResultado']
+    rutadestino: str = request.form['rutaDestino']
+    bd: FileManager = FileManager()
+    resultado = bd.downloadFile(nombreUsuario, stringDirectorio, nombreArchivo, rutadestino)
+    listaDirectorio = stringDirectorio.split('/')
+    arbol = obtenerJsonRelativo(listaDirectorio,nombreUsuario)[1]
+    if "error" in resultado:
+        return render_template('drive.html', drive = arbol, jsonResultado = jsonResultado,stringDirectorio = stringDirectorio, error = resultado["error"], usuario = nombreUsuario, infoArchivo = ""   )
+    else:
+        return render_template('drive.html', drive = arbol, jsonResultado = jsonResultado, stringDirectorio = stringDirectorio, usuario = nombreUsuario, infoArchivo = "", error="Descarga existosa" )
 @views.route("/copiarArchivo", methods = ['POST'])
 def copiar():
     nombreUsuario = request.form ['usuario']

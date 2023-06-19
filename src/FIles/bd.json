@@ -216,7 +216,17 @@
                                 ]
                             }
                         ],
-                        "files": []
+                        "files": [
+                            {
+                                "id": 22,
+                                "name": "descarga.txt",
+                                "content": "esto es una prueba de descarga del archvio ",
+                                "size": 43,
+                                "fechaCreacion": "2023-06-19 02:28:43",
+                                "fechaModificacion": "2023-06-19 02:28:43",
+                                "compartido": false
+                            }
+                        ]
                     },
                     {
                         "name": "drive",
@@ -247,5 +257,5 @@
             }
         }
     ],
-    "id_counter": 21
+    "id_counter": 22
 }

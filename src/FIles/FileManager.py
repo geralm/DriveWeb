@@ -582,7 +582,19 @@ class FileManager():
             return resultado
         else:
             return {"error": "No se puede mover un archivo de drive"}
-      
+    def downloadFile(self, nombreUsuario, stringDirectorio, nombreArchivo, rutadestino):
+        userData: dict = self.getUser(nombreUsuario)
+        if "error" in userData:
+            return userData
+        fileData: dict = self.__searchFileSinParseo(nombreUsuario, stringDirectorio, nombreArchivo)
+        if "error" in fileData:
+            return fileData
+        archivo_destino = os.path.join(rutadestino, nombreArchivo + ".txt")
+        with open(archivo_destino, "w") as archivo:
+            archivo.write(fileData["content"])
+        return {"info": "Archivo descargado con exito"}
+            
+            
             
 # bd = BD()
 bd: FileManager = FileManager()
