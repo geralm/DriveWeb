@@ -181,7 +181,7 @@ Ruta: root/{{ stringDirectorio }}
             <input hidden name="usuario" value="{{ usuario }}">
             <input hidden name="jsonResultado" value="{{ jsonResultado }}">
             <input hidden name="stringDirectorio" value="{{ stringDirectorio }}">
-            <input type="text" name="directorio" data-dismiss="alert"placeholder="Nombre del Directorio" required><br>>
+            <input type="text" name="directorio" data-dismiss="alert"placeholder="Nombre del Directorio" required><br>
             <input  class="btn btn-success"  type="submit" value="Eliminar Directorio">
         </form>
 
@@ -202,7 +202,22 @@ Ruta: root/{{ stringDirectorio }}
 
         <br>
         <br>
-        <h4>Compartir Archivos: </h4>
+        <h4>Copiar Archivo: </h4>
+        <form action="\copiarArchivo" method="POST">
+            <input hidden name="arbol" value="{{ drive }}">
+            <input hidden name="usuario" value="{{ usuario }}">
+            <input hidden name="jsonResultado" value="{{ jsonResultado }}">
+            <input hidden name="stringDirectorio" value="{{ stringDirectorio }}">
+
+            <input type="text" name="nombreArchivo" data-dismiss="alert"placeholder="Nombre del Archivo" required><br>
+            <input type="text" name="ruta" data-dismiss="alert"placeholder="Ruta Destino" required><br>
+
+            <input  class="btn btn-success"  type="submit" value="Copiar">
+        </form>
+
+        <br>
+        <br>
+        <h4>Compartir Directorio: </h4>
         <form action="\compartirDirectorio" method="POST">
             <input hidden name="arbol" value="{{ drive }}">
             <input hidden name="usuario" value="{{ usuario }}">
