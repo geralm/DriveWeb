@@ -507,7 +507,7 @@ class FileManager():
 
         return json_data
 
-    def copyVV (self, username:str, originalPath, destPath):
+    def copyVV (self, username:str, originalPath:str, destPath:str):
         userdata: dict = self.getUser(username)
         if "error" in userdata:
             return userdata
@@ -516,6 +516,8 @@ class FileManager():
             #Copiar archivo
             directorypath:str = '/'.join(splitOriginalpath[:-1])
             fileData: dict = self.__searchFileSinParseo(username, directorypath, splitOriginalpath[-1])
+            if "error" in fileData:
+                return fileData
             return self.addFile(userdata, fileData, destPath)
             
         else:
@@ -573,12 +575,17 @@ class FileManager():
         if archivo_encontrado is None:
             return {"error": "Archivo no encontrado"}
         return archivo_encontrado
-
+    def moverVV (self, username:str, originalPath, destPath):
+        if originalPath.find("drive") == -1:
+            userdata: dict = self.getUser(username)
+            resultado: dict = self.copyVV(username, originalPath, destPath)
+            return resultado
+        else:
+            return {"error": "No se puede mover un archivo de drive"}
+      
+            
 # bd = BD()
 bd: FileManager = FileManager()
-
-
-#print(bd.copyVV("Prueba", "personal/Hola.txt", "personal/Anidado1/Anidado1.1/DirEsteban"))
 
 #print (bd.searchFile("Prueba", "personal/Anidado1","esoooo.txt"))
 #print(bd.createUser("Prueba",100))

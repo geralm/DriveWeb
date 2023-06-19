@@ -254,7 +254,27 @@ def copiar():
         return render_template('drive.html', drive = arbol, jsonResultado = jsonResultado,stringDirectorio = stringDirectorio, error = resultado["error"], usuario = nombreUsuario, infoArchivo = ""   )
     else:
         return render_template('drive.html', drive = arbol, jsonResultado = jsonResultado, stringDirectorio = stringDirectorio, usuario = nombreUsuario, infoArchivo = "" )
-    return "Copiar"
+@views.route("/moverArchivo", methods = ['POST'])
+def mover():
+    nombreUsuario = request.form ['usuario']
+    arbol = request.form ['arbol']
+    nombreArchivo = request.form['nombreArchivo']
+    rutadestino: str = request.form['ruta']
+    stringDirectorio = request.form['stringDirectorio']
+    jsonResultado = request.form['jsonResultado']
+    bd: FileManager = FileManager()
+    resultado: dict = bd.moverVV(nombreUsuario, stringDirectorio+"/"+nombreArchivo, rutadestino)
+    if "error" not in resultado:
+        if bd.isFile(nombreArchivo):
+            resultado: dict = bd.deleteFile(bd.getUser(nombreUsuario), stringDirectorio+"/"+nombreArchivo)
+        else:
+            resultado: dict = bd.deleteDirectory(bd.getUser(nombreUsuario), stringDirectorio+"/"+nombreArchivo)
+        listaDirectorio = stringDirectorio.split('/')
+        arbol = obtenerJsonRelativo(listaDirectorio,nombreUsuario)[1]
+    if "error" in resultado:
+        return render_template('drive.html', drive = arbol, jsonResultado = jsonResultado,stringDirectorio = stringDirectorio, error = resultado["error"], usuario = nombreUsuario, infoArchivo = ""   )
+    else:
+        return render_template('drive.html', drive = arbol, jsonResultado = jsonResultado, stringDirectorio = stringDirectorio, usuario = nombreUsuario, infoArchivo = "" , error= "Movido con exito")
 @views.route("/load", methods=['POST'])
 def load():
     usuario = request.form['usuario']

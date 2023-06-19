@@ -1,14 +1,87 @@
 {
     "users": [
         {
+            "username": "Compartido",
+            "root": {
+                "name": "root",
+                "directories": [
+                    {
+                        "name": "personal",
+                        "directories": [
+                            {
+                                "name": "A1",
+                                "directories": [],
+                                "files": []
+                            },
+                            {
+                                "name": "A2",
+                                "directories": [],
+                                "files": []
+                            }
+                        ],
+                        "files": []
+                    },
+                    {
+                        "name": "drive",
+                        "directories": [],
+                        "files": []
+                    }
+                ],
+                "files": []
+            },
+            "sizeDrive": "20"
+        },
+        {
             "username": "Prueba2",
             "root": {
                 "name": "root",
                 "directories": [
                     {
                         "name": "personal",
-                        "directories": [],
-                        "files": []
+                        "directories": [
+                            {
+                                "name": "Anidado1.1",
+                                "directories": [
+                                    {
+                                        "name": "DirEsteban",
+                                        "directories": [],
+                                        "files": []
+                                    }
+                                ],
+                                "files": [
+                                    {
+                                        "id": 10,
+                                        "name": "AnidadoPrueba.txt",
+                                        "content": "jejeje",
+                                        "size": 6,
+                                        "fechaCreacion": "2023-06-17 22:11:54",
+                                        "fechaModificacion": "2023-06-18 21:23:04",
+                                        "compartido": false
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "A1",
+                                "directories": [],
+                                "files": []
+                            },
+                            {
+                                "name": "A2",
+                                "directories": [],
+                                "files": []
+                            }
+                        ],
+                        "files": [
+                            {
+                                "id": 18,
+                                "name": "Hola.txt",
+                                "content": "as\u00f1dfkja\u00f1slkdjf",
+                                "size": 17,
+                                "fechaCreacion": "2023-06-19 00:48:05",
+                                "fechaModificacion": "2023-06-19 00:48:05",
+                                "compartido": false
+                            }
+                        ]
                     },
                     {
                         "name": "drive",
@@ -99,45 +172,6 @@
             "sizeDrive": "100"
         },
         {
-            "username": "Compartido",
-            "root": {
-                "name": "root",
-                "directories": [
-                    {
-                        "name": "personal",
-                        "directories": [],
-                        "files": []
-                    },
-                    {
-                        "name": "drive",
-                        "directories": [],
-                        "files": [
-                            {
-                                "id": 12,
-                                "name": "Hola.txt",
-                                "content": "Hola ya no soy un txt",
-                                "size": 21,
-                                "fechaCreacion": "2023-06-18 22:54:52",
-                                "fechaModificacion": "2023-06-18 22:58:20",
-                                "compartido": true
-                            },
-                            {
-                                "id": 13,
-                                "name": "adios.txt",
-                                "content": "Modificando esta mierda",
-                                "size": 23,
-                                "fechaCreacion": "2023-06-18 23:00:45",
-                                "fechaModificacion": "2023-06-18 23:01:27",
-                                "compartido": true
-                            }
-                        ]
-                    }
-                ],
-                "files": []
-            },
-            "sizeDrive": "20"
-        },
-        {
             "username": "Prueba",
             "root": {
                 "name": "root",
@@ -146,246 +180,48 @@
                         "name": "personal",
                         "directories": [
                             {
-                                "name": "Anidado1",
-                                "directories": [
-                                    {
-                                        "name": "Anidado1.1",
-                                        "directories": [
-                                            {
-                                                "name": "DirEsteban",
-                                                "directories": [],
-                                                "files": [
-                                                    {
-                                                        "id": 2,
-                                                        "name": "Hola.txt",
-                                                        "content": "primera prueba desde la pag",
-                                                        "size": 27,
-                                                        "fechaCreacion": "2023-06-16 17:29:41",
-                                                        "fechaModificacion": "2023-06-16 17:29:41",
-                                                        "compartido": false
-                                                    }
-                                                ]
-                                            }
-                                        ],
-                                        "files": [
-                                            {
-                                                "id": 10,
-                                                "name": "AnidadoPrueba.txt",
-                                                "content": "biabsiasdiasnd",
-                                                "size": 14,
-                                                "fechaCreacion": "2023-06-17 22:11:54",
-                                                "fechaModificacion": "2023-06-17 22:11:54",
-                                                "compartido": false
-                                            }
-                                        ]
-                                    },
-                                    {
-                                        "name": "Anidado1.2",
-                                        "directories": [
-                                            {
-                                                "name": "utimojiji",
-                                                "directories": [],
-                                                "files": []
-                                            },
-                                            {
-                                                "name": "DirEsteban",
-                                                "directories": [],
-                                                "files": [
-                                                    {
-                                                        "id": 2,
-                                                        "name": "Hola.txt",
-                                                        "content": "primera prueba desde la pag",
-                                                        "size": 27,
-                                                        "fechaCreacion": "2023-06-16 17:29:41",
-                                                        "fechaModificacion": "2023-06-16 17:29:41",
-                                                        "compartido": false
-                                                    }
-                                                ]
-                                            }
-                                        ],
-                                        "files": [
-                                            {
-                                                "id": 13,
-                                                "name": "adios.txt",
-                                                "content": "soy un adios txt",
-                                                "size": 16,
-                                                "fechaCreacion": "2023-06-18 23:00:45",
-                                                "fechaModificacion": "2023-06-18 23:00:45",
-                                                "compartido": false
-                                            }
-                                        ]
-                                    },
-                                    {
-                                        "name": "PruebaPagina",
-                                        "directories": [],
-                                        "files": []
-                                    },
-                                    {
-                                        "name": "directorioNuevo",
-                                        "directories": [],
-                                        "files": []
-                                    }
-                                ],
-                                "files": [
-                                    {
-                                        "id": 4,
-                                        "name": "aja.c",
-                                        "content": "de nuevo modificasao",
-                                        "size": 20,
-                                        "fechaCreacion": "2023-06-16 17:31:33",
-                                        "fechaModificacion": "2023-06-18 12:34:27",
-                                        "compartido": false
-                                    },
-                                    {
-                                        "id": 5,
-                                        "name": "aja.c",
-                                        "content": "asdasd",
-                                        "size": 6,
-                                        "fechaCreacion": "2023-06-16 17:32:56",
-                                        "fechaModificacion": "2023-06-16 17:32:56",
-                                        "compartido": false
-                                    }
-                                ],
-                                "compartido": false
-                            },
-                            {
                                 "name": "Anidado2",
                                 "directories": [],
                                 "files": []
                             },
                             {
-                                "name": "PruebaPagina",
-                                "directories": [],
-                                "files": []
-                            },
-                            {
-                                "name": "DirEsteban",
-                                "directories": [],
+                                "name": "A1",
+                                "directories": [
+                                    {
+                                        "name": "A2",
+                                        "directories": [],
+                                        "files": [
+                                            {
+                                                "id": 21,
+                                                "name": "otro.txt",
+                                                "content": "asdfgadsfg",
+                                                "size": 10,
+                                                "fechaCreacion": "2023-06-19 01:45:21",
+                                                "fechaModificacion": "2023-06-19 01:45:21",
+                                                "compartido": false
+                                            }
+                                        ]
+                                    }
+                                ],
                                 "files": [
                                     {
-                                        "id": 2,
-                                        "name": "Hola.txt",
-                                        "content": "primera prueba desde la pag",
-                                        "size": 27,
-                                        "fechaCreacion": "2023-06-16 17:29:41",
-                                        "fechaModificacion": "2023-06-16 17:29:41",
+                                        "id": 20,
+                                        "name": "sinrepetir.txt",
+                                        "content": "ASDFASDF",
+                                        "size": 8,
+                                        "fechaCreacion": "2023-06-19 01:45:10",
+                                        "fechaModificacion": "2023-06-19 01:45:10",
                                         "compartido": false
                                     }
                                 ]
                             }
                         ],
-                        "files": [
-                            {
-                                "id": 3,
-                                "name": "Hola.txt",
-                                "content": "Modificando este condenado",
-                                "size": 26,
-                                "fechaCreacion": "2023-06-16 17:30:07",
-                                "fechaModificacion": "2023-06-18 22:41:04",
-                                "compartido": true
-                            },
-                            {
-                                "id": 11,
-                                "name": "nuevoCompartido.txt",
-                                "content": "otra veess",
-                                "size": 10,
-                                "fechaCreacion": "2023-06-18 21:24:26",
-                                "fechaModificacion": "2023-06-18 21:28:25",
-                                "compartido": true
-                            },
-                            {
-                                "id": 13,
-                                "name": "adios.txt",
-                                "content": "soy un adios txt",
-                                "size": 16,
-                                "fechaCreacion": "2023-06-18 23:00:45",
-                                "fechaModificacion": "2023-06-18 23:00:45",
-                                "compartido": false
-                            }
-                        ]
+                        "files": []
                     },
                     {
                         "name": "drive",
-                        "directories": [
-                            {
-                                "name": "Anidado1",
-                                "directories": [
-                                    {
-                                        "name": "Anidado1.1",
-                                        "directories": [
-                                            {
-                                                "name": "DirEsteban",
-                                                "directories": [],
-                                                "files": []
-                                            }
-                                        ],
-                                        "files": [
-                                            {
-                                                "id": 10,
-                                                "name": "AnidadoPrueba.txt",
-                                                "content": "biabsiasdiasnd",
-                                                "size": 14,
-                                                "fechaCreacion": "2023-06-17 22:11:54",
-                                                "fechaModificacion": "2023-06-17 22:11:54",
-                                                "compartido": false
-                                            }
-                                        ]
-                                    },
-                                    {
-                                        "name": "Anidado1.2",
-                                        "directories": [
-                                            {
-                                                "name": "utimojiji",
-                                                "directories": [],
-                                                "files": []
-                                            }
-                                        ],
-                                        "files": []
-                                    },
-                                    {
-                                        "name": "PruebaPagina",
-                                        "directories": [],
-                                        "files": []
-                                    },
-                                    {
-                                        "name": "directorioNuevo",
-                                        "directories": [],
-                                        "files": []
-                                    }
-                                ],
-                                "files": [
-                                    {
-                                        "id": 4,
-                                        "name": "aja.c",
-                                        "content": "de nuevo modificasao",
-                                        "size": 20,
-                                        "fechaCreacion": "2023-06-16 17:31:33",
-                                        "fechaModificacion": "2023-06-18 12:34:27",
-                                        "compartido": false
-                                    },
-                                    {
-                                        "id": 5,
-                                        "name": "aja.c",
-                                        "content": "asdasd",
-                                        "size": 6,
-                                        "fechaCreacion": "2023-06-16 17:32:56",
-                                        "fechaModificacion": "2023-06-16 17:32:56",
-                                        "compartido": false
-                                    }
-                                ],
-                                "compartido": false
-                            }
-                        ],
+                        "directories": [],
                         "files": [
-                            {
-                                "id": 10,
-                                "name": "AnidadoPrueba.txt",
-                                "content": "biabsiasdiasnd",
-                                "size": 14,
-                                "fechaCreacion": "2023-06-17 22:11:54",
-                                "fechaModificacion": "2023-06-17 22:11:54",
-                                "compartido": true
-                            },
                             {
                                 "id": 11,
                                 "name": "nuevoCompartido.txt",
@@ -411,5 +247,5 @@
             }
         }
     ],
-    "id_counter": 13
+    "id_counter": 21
 }
