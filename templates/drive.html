@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Directorio</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" href="../static/app.css">
+</head>
+
+<body>
+    <nav id="mainNavbar" class="navbar navbar-dark bg-dark nav-expand-md">
+        <a href="#" class="navbar-brand">Drive web</a>
+    </nav>
+    {% if error %}
+    <div class="alert alert-danger" role="alert">{{error}}</div>
+    {% endif %}
+    <div class="drive">
+
+        <textarea readonly id="ruta" name="ruta" rows="1" cols="85">
+Ruta: root/{{ stringDirectorio }}
+        </textarea>
+
+        <br>
+        <br>
+        <h4>Estructura del directorio Actual: </h4>
+
+        <textarea readonly id="w3review" name="w3review" rows="30" cols="85">
+{{ drive }}
+        </textarea>
+
+        <br>
+        <br>
+        <div class= "form_container">
+            <div class="form-insideContainer">
+                <h4>Moverse: </h4>
+                <form  action="\entrarDirectorio" method="POST">
+                    <input hidden name="usuario" value="{{ usuario }}">
+                    <input hidden name="jsonResultado" value="{{ jsonResultado }}">
+                    <input hidden name="stringDirectorio" value="{{ stringDirectorio }}">
+                    <input type="text" name="directorio" data-dismiss="alert"placeholder="Nombre del directorio" required><br>
+                    <input  class="btn btn-success"  type="submit" value="Entrar"><br>
+                </form>
+                <form action="\salirDirectorio" method="POST">
+                    <input hidden name="usuario" value="{{ usuario }}">
+                    <input hidden name="jsonResultado" value="{{ jsonResultado }}">
+                    <input hidden name="stringDirectorio" value="{{ stringDirectorio }}">
+                    
+                    <input  class="btn btn-success"  type="submit" value="Retroceder"><br><br>
+                </form>
+            </div>
+            
+            
+            
+        </div>
+
+        <div class = "form_container">
+            <div class="form-insideContainer">
+                <h4>Ver propiedades y contenido de Archivo: </h4>
+                <form action="\verArchivo" method="POST">
+                    <input hidden name="arbol" value="{{ drive }}">
+                    <input hidden name="usuario" value="{{ usuario }}">
+                    <input hidden name="jsonResultado" value="{{ jsonResultado }}">
+                    <input hidden name="stringDirectorio" value="{{ stringDirectorio }}">
+                    <input type="text" name="archivo" data-dismiss="alert"placeholder="Nombre del archivo" required><br>
+                    <input  class="btn btn-success"  type="submit" value="Ver Archivo">
+                </form>
+            </div>
+            <div class="form-insideContainer">
+                <h1>Digite la ruta virtual: </h1>
+                <form  action="\copiar" method="POST">
+                    <input hidden name="usuario" value="{{ usuario }}">
+                    <input hidden name="jsonResultado" value="{{ jsonResultado }}">
+                    <input hidden name="stringDirectorio" value="{{ stringDirectorio }}">
+                    <input type="text" name="rutaDirectorio" data-dismiss="alert"placeholder="{{rutaDirectorio}}}" required>
+                    <input  class="btn btn-success"  type="submit" value="Copiar VV"><br>
+                </form>
+                <form action="\download" method="POST">
+                    <input hidden name="usuario" value="{{ usuario }}">
+                    <input hidden name="jsonResultado" value="{{ jsonResultado }}">
+                    <input hidden name="stringDirectorio" value="{{ stringDirectorio }}">
+                    <input type="text" name="nombreArchivo" data-dismiss="alert"placeholder="Nombre archivo" required>
+                    
+                    <input  class="btn btn-success"  type="submit" value="download">
+
+                </form>
+                <form id="cargarArchivo" action="/load" method="POST">
+                    <input hidden name="usuario" value="{{ usuario }}">
+                    <input hidden name="jsonResultado" value="{{ jsonResultado }}">
+                    <input hidden name="stringDirectorio" value="{{ stringDirectorio }}">                    
+                    <input class="btn btn-success" type="file" value="load" onchange="abrirExploradorArchivos()">
+                </form>
+                <script>
+                    function abrirExploradorArchivos() {
+                        const input = document.createElement('input');
+                        input.type = 'file';
+                        input.accept = '.txt';
+                        input.onchange = function(event) {
+                            const archivoSeleccionado = event.target.files[0];
+                            const rutaArchivo = URL.createObjectURL(archivoSeleccionado);
+                            // Aquí puedes realizar acciones adicionales con la ruta del archivo
+                            console.log("Ruta del archivo:", rutaArchivo);
+                            // Agregar la ruta del archivo al formulario antes de enviarlo
+                            const formulario = document.getElementById('cargarArchivo');
+                            const rutaArchivoInput = document.createElement('input');
+                            rutaArchivoInput.type = 'hidden';
+                            rutaArchivoInput.name = 'rutaArchivo';
+                            rutaArchivoInput.value = rutaArchivo;
+                            formulario.appendChild(rutaArchivoInput);
+                            // Enviar el formulario
+                            formulario.submit();
+                        };
+                        input.click();
+                    }
+                </script>
+            </div>
+        </div>
+        
+
+        <textarea readonly id="infoArchivoTextArea" name="infoArchivoTextArea" rows="15" cols="85">
+{{ infoArchivo }}
+        </textarea>
+
+        <br>
+        <br>
+        <h4>Crear Archivo en el directorio Actual: </h4>
+        <form action="\crearArchivo" method="POST">
+            <input hidden name="arbol" value="{{ drive }}">
+            <input hidden name="usuario" value="{{ usuario }}">
+            <input hidden name="jsonResultado" value="{{ jsonResultado }}">
+            <input hidden name="stringDirectorio" value="{{ stringDirectorio }}">
+            <input type="text" name="nombreArchivoCreacion" data-dismiss="alert"placeholder="Nombre del archivo" required><br>
+            <input type="text" name="extensionArchivoCreacion" data-dismiss="alert"placeholder="Extension del archivo" required><br>
+            <textarea name="contenidoArchivoCreacion" data-dismiss="alert" placeholder="Contenido del archivo" required rows="4" cols="85"></textarea><br>
+            <input  class="btn btn-success"  type="submit" value="Crear Archivo">
+        </form>
+
+        <br>
+        <br>
+        <h4>Crear Directorio en el directorio Actual: </h4>
+        <form action="\crearDirectorio" method="POST">
+            <input hidden name="arbol" value="{{ drive }}">
+            <input hidden name="usuario" value="{{ usuario }}">
+            <input hidden name="jsonResultado" value="{{ jsonResultado }}">
+            <input hidden name="stringDirectorio" value="{{ stringDirectorio }}">
+            <input type="text" name="nombreDirectorioCreacion" data-dismiss="alert"placeholder="Nombre del directorio" required><br>
+            <input  class="btn btn-success"  type="submit" value="Crear Directorio">
+        </form>
+
+        <br>
+        <br>
+        <h4>Modificar Archivo del directorio Actual: </h4>
+        <form action="\modificarArchivo" method="POST">
+            <input hidden name="arbol" value="{{ drive }}">
+            <input hidden name="usuario" value="{{ usuario }}">
+            <input hidden name="jsonResultado" value="{{ jsonResultado }}">
+            <input hidden name="stringDirectorio" value="{{ stringDirectorio }}">
+            <input type="text" name="archivo" data-dismiss="alert"placeholder="Nombre del archivo" required><br>
+            <textarea name="contenidoArchivoModificado" data-dismiss="alert" placeholder="Nuevo contenido del archivo" required rows="4" cols="85"></textarea><br>
+            <input  class="btn btn-success"  type="submit" value="Modificar Archivo">
+        </form>
+
+        <br>
+        <br>
+        <h4>Eliminar Archivo del directorio Actual: </h4>
+        <form action="\eliminarArchivo" method="POST">
+            <input hidden name="arbol" value="{{ drive }}">
+            <input hidden name="usuario" value="{{ usuario }}">
+            <input hidden name="jsonResultado" value="{{ jsonResultado }}">
+            <input hidden name="stringDirectorio" value="{{ stringDirectorio }}">
+            <input type="text" name="archivo" data-dismiss="alert"placeholder="Nombre del archivo" required><br>
+            <input  class="btn btn-success"  type="submit" value="Eliminar Archivo">
+        </form>
+        
+        <br>
+        <br>
+        <h4>Eliminar Directorio del directorio Actual: </h4>
+        <form action="\eliminarDirectorio" method="POST">
+            <input hidden name="arbol" value="{{ drive }}">
+            <input hidden name="usuario" value="{{ usuario }}">
+            <input hidden name="jsonResultado" value="{{ jsonResultado }}">
+            <input hidden name="stringDirectorio" value="{{ stringDirectorio }}">
+            <input type="text" name="directorio" data-dismiss="alert"placeholder="Nombre del Directorio" required><br>
+            <input  class="btn btn-success"  type="submit" value="Eliminar Directorio">
+        </form>
+
+        <br>
+        <br>
+        <h4>Compartir Archivos: </h4>
+        <form action="\compartirArchivo" method="POST">
+            <input hidden name="arbol" value="{{ drive }}">
+            <input hidden name="usuario" value="{{ usuario }}">
+            <input hidden name="jsonResultado" value="{{ jsonResultado }}">
+            <input hidden name="stringDirectorio" value="{{ stringDirectorio }}">
+
+            <input type="text" name="nombreArchivoCompartir" data-dismiss="alert"placeholder="Nombre del Archivo" required><br>
+            <input type="text" name="nombreUsuarioCompartir" data-dismiss="alert"placeholder="Nombre del Usuario" required><br>
+
+            <input  class="btn btn-success"  type="submit" value="Compartir">
+        </form>
+
+        <br>
+        <br>
+        <h4>Copiar Archivo: </h4>
+        <form action="\copiarArchivo" method="POST">
+            <input hidden name="arbol" value="{{ drive }}">
+            <input hidden name="usuario" value="{{ usuario }}">
+            <input hidden name="jsonResultado" value="{{ jsonResultado }}">
+            <input hidden name="stringDirectorio" value="{{ stringDirectorio }}">
+
+            <input type="text" name="nombreArchivo" data-dismiss="alert"placeholder="Nombre del Archivo" required><br>
+            <input type="text" name="ruta" data-dismiss="alert"placeholder="Ruta Destino" required><br>
+
+            <input  class="btn btn-success"  type="submit" value="Copiar">
+        </form>
+
+        <br>
+        <br>
+        <h4>Compartir Directorio: </h4>
+        <form action="\compartirDirectorio" method="POST">
+            <input hidden name="arbol" value="{{ drive }}">
+            <input hidden name="usuario" value="{{ usuario }}">
+            <input hidden name="jsonResultado" value="{{ jsonResultado }}">
+            <input hidden name="stringDirectorio" value="{{ stringDirectorio }}">
+
+            <input type="text" name="nombreDirectorioCompartir" data-dismiss="alert"placeholder="Nombre del Directorio" required><br>
+            <input type="text" name="nombreUsuarioCompartir" data-dismiss="alert"placeholder="Nombre del Usuario" required><br>
+
+            <input  class="btn btn-success"  type="submit" value="Compartir">
+        </form>
+
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

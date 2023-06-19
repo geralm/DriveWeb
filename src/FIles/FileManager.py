@@ -2,9 +2,11 @@ import json
 import os
 from datetime import datetime
 class FileManager():
+    
     def __init__(self) -> None:
         self.BD_PATH = 'src/Files/bd.json'
         self.DEFAULTS_DIRECTORIES:tuple = ("personal", "drive", "root")
+
     def getFileProperties(self, path: str) -> dict:
         file: dict = {}  # Crear un diccionario vacío para almacenar las propiedades del archivo
         if os.path.exists(path):  # Comprobar si la ruta de archivo existe
@@ -22,7 +24,7 @@ class FileManager():
             file = {"error": "File not found"}
         return file  # Devolver el diccionario con las propiedades del archivo
 
-    def createUser(self, username: str) -> dict:
+    def createUser(self, username: str, cantBytes: int) -> dict:
         try:
             with open(self.BD_PATH, 'r') as file:
                 data = json.load(file)
@@ -32,7 +34,8 @@ class FileManager():
                 else:
                     data['users'].append({
                         "username": username,
-                        "root": self.createDirectory("root")
+                        "root": self.createDirectory("root"),
+                        "sizeDrive": cantBytes
                     })
                     data['users'][-1]["root"]["directories"].append( self.createDirectory("personal"))
                     data['users'][-1]["root"]["directories"].append( self.createDirectory("drive"))
@@ -82,16 +85,32 @@ class FileManager():
         dest: dict = self.__searchDirectory(userData, path)
         if dest.get("error"):
             return dest
+        
+        nombre = fileData["name"]
+        for file in dest["files"]:
+            if file["name"] == nombre:
+                return {"error": "Ya existe el nombre del archivo"}
+            
         dest["files"].append(fileData)
         self.__updateUser(userData)
         return {"status": "File added successfully"}
+    
+    
+    
     def addDirectory(self, userData: dict, directoryData: dict, path: str) -> dict:
         dest: dict = self.__searchDirectory(userData, path)
         if dest.get("error"):
             return dest
+        
+        nombre = directoryData["name"]
+        for directory in dest["directories"]:
+            if directory["name"] == nombre:
+                return {"error": "Ya existe el nombre del directorio"}
+            
         dest["directories"].append(directoryData)
         self.__updateUser(userData)
         return {"status": "Directory added successfully"}
+    
     def deleteFile(self, userData: dict, path: str) -> dict:
         path = tuple(path.split("/"))
         dest: dict = userData["root"]
@@ -144,35 +163,428 @@ class FileManager():
             if not directory_found:
                 return {"error": "Directory not found"}
         return dest
-    def searchFile(self, userData: dict, path: str) -> dict:
-        fileName = path.split("/")[-1]
-        directoryPath = "/".join(path.split("/")[:-1])
-        dest: dict = self.__searchDirectory(userData, directoryPath)
-        if dest.get("error"):
-            return dest
-        for file in dest["files"]:
-            if file.get("name") == fileName:
-                return file
-        return {"error": "File not found"}
+    def searchFile(self, username: str, path: str, name: str) -> dict:
+        listaDirectorio = path.split('/')
+        lista_directorios = listaDirectorio.copy()
+
+        # Cargar el JSON en un diccionario
+        with open(self.BD_PATH) as file:
+            data = json.load(file)
+
+        # Buscar el usuario por el nombre de usuario
+        usuarios = data["users"]
+        usuario_encontrado = None
+        for usuario in usuarios:
+            if usuario["username"] == username:
+                usuario_encontrado = usuario
+                break
+
+        if usuario_encontrado is None:
+            return {"error": "Usuario no encontrado"}
+        
+        # Buscar los directorios en la estructura del usuario
+        directorios = usuario_encontrado["root"]["directories"]
+        for nombre_directorio in lista_directorios:
+            directorio_encontrado = None
+            for directorio in directorios:
+                if directorio["name"] == nombre_directorio:
+                    directorio_encontrado = directorio
+                    directorios = directorio["directories"]
+                    files = directorio["files"]
+                    break
+
+            if directorio_encontrado is None:
+                return {"error": "Directorio no encontrado "+nombre_directorio}
+            
+        # Buscar el archivo en el último directorio
+        archivos = files
+        archivo_encontrado = None
+        for archivo in archivos:
+            if archivo["name"] == name:
+                archivo_encontrado = archivo
+                break
+
+        if archivo_encontrado is None:
+            return {"error": "Archivo no encontrado"}
+
+        informacion = f"Información del archivo:\n"
+        informacion += f"Nombre: {archivo_encontrado['name']}\n"
+        informacion += f"Extension: txt\n"
+        informacion += f"Tamaño: {archivo_encontrado['size']}\n"
+        informacion += f"Fecha Creacion: {archivo_encontrado['fechaCreacion']}\n"
+        informacion += f"Fecha Modificacion: {archivo_encontrado['fechaModificacion']}\n"
+        informacion += f"Compartido: {archivo_encontrado['compartido']}\n\n"
+
+        informacion += f"Contenido: {archivo_encontrado['content']}\n"
+        
+        
+        return {"info": informacion}
+    
+    
     def createDirectory(self, name:str)->dict:
         return  {
                     "name": name,
                     "directories": [],
                     "files": []
                 }
-    def createFile(self, absolutePath:str)->dict:
-        name: str = absolutePath.split("\\")[-1]
+    
+    def generarId(self) -> int:
+        with open(self.BD_PATH, 'r') as file:
+            json_content = json.load(file)
+            json_content["id_counter"] += 1
+
+        with open(self.BD_PATH, 'w') as file:
+            json.dump(json_content, file)
+
+        return json_content["id_counter"]
+    
+    def calcularTamanoEnBytes(self, string:str)->int:
+        bytes_string = string.encode()
+        tamano_en_bytes = len(bytes_string)
+        return tamano_en_bytes
+
+    def createFile(self, name:str, content:str, extension: str)->dict:
+        id = self.generarId()
+        fecha_actual = datetime.now()
+        fecha_hora_str = fecha_actual.strftime("%Y-%m-%d %H:%M:%S")
         return {
-            "name": name,
-            "absolutePath": absolutePath,
+            "id": id,
+            "name": name+"."+extension,
+            "content": content,
+            "size": self.calcularTamanoEnBytes(content),
+            "fechaCreacion": fecha_hora_str,
+            "fechaModificacion": fecha_hora_str,
+            "compartido": False
         }
+    
+    def shareFile(selfe, filename: str, username: str, path: str)->dict:
+        #obtener archivo
+        #cambiar compartido a True
+        #copiar Archivo en el drive del usuario
+        #1- exisite el usuario?
+        #2- no esta el archivo repetido?
+        print ("en proceso")
+
+    def modificarFile(self, username: str, path: str, name: str, newContent: str) -> dict:
+        listaDirectorio = path.split('/')
+        lista_directorios = listaDirectorio.copy()
+
+        # Cargar el JSON en un diccionario
+        with open(self.BD_PATH) as file:
+            data = json.load(file)
+
+        # Buscar el usuario por el nombre de usuario
+        usuarios = data["users"]
+        usuario_encontrado = None
+        for usuario in usuarios:
+            if usuario["username"] == username:
+                usuario_encontrado = usuario
+                break
+
+        if usuario_encontrado is None:
+            return {"error": "Usuario no encontrado"}
+        
+        # Buscar los directorios en la estructura del usuario
+        directorios = usuario_encontrado["root"]["directories"]
+        for nombre_directorio in lista_directorios:
+            directorio_encontrado = None
+            for directorio in directorios:
+                if directorio["name"] == nombre_directorio:
+                    directorio_encontrado = directorio
+                    directorios = directorio["directories"]
+                    files = directorio["files"]
+                    break
+
+            if directorio_encontrado is None:
+                return {"error": "Directorio no encontrado "+nombre_directorio}
+            
+        # Buscar el archivo en el último directorio
+        archivos = files
+        archivo_encontrado = None
+        for archivo in archivos:
+            if archivo["name"] == name:
+                archivo_encontrado = archivo
+                break
+
+        if archivo_encontrado is None:
+            return {"error": "Archivo no encontrado"}
+
+        fecha_actual = datetime.now()
+        fecha_hora_str = fecha_actual.strftime("%Y-%m-%d %H:%M:%S")
+
+        archivo["content"] = newContent
+        archivo["size"] = self.calcularTamanoEnBytes(newContent) 
+        archivo["fechaModificacion"] = fecha_hora_str
+        
+        print (archivo["compartido"])
+        if(archivo["compartido"]=="true"):
+            updated_json_data = self.replace_file_info(data, archivo["id"], archivo)
+            json.dumps(updated_json_data, indent=4)
+
+        with open(self.BD_PATH, 'w') as file:
+            json.dump(data, file, indent=4)
+
+        return {"info": "Modificado con exito"}
+
+    def deleteDirectorio(self, userData: dict, path: str) -> dict:
+        path = tuple(path.split("/"))
+        dest: dict = userData["root"]
+        for directory in path[:-1]:
+            directory_found:bool = False
+            for item in dest["directories"]:
+                if item.get("name") == directory:
+                    dest = item
+                    directory_found = True
+                    break
+            if not directory_found:
+                return {"error": "Directory not found"}
+            
+        for file in dest["directories"]:
+            if file.get("name") == path[-1]:
+                dest["directories"].remove(file)
+                self.__updateUser(userData)
+                return {"status": "File deleted successfully"}
+        return {"error": "File not found"}
+    
+    def compartirFile(self, username: str, path: str, name: str, userDestino: str) -> dict:
+        listaDirectorio = path.split('/')
+        lista_directorios = listaDirectorio.copy()
+
+        # Cargar el JSON en un diccionario
+        with open(self.BD_PATH) as file:
+            data = json.load(file)
+
+        # Buscar el usuario por el nombre de usuario
+        usuarios = data["users"]
+        usuario_encontrado = None
+        for usuario in usuarios:
+            if usuario["username"] == username:
+                usuario_encontrado = usuario
+                break
+
+        if usuario_encontrado is None:
+            return {"error": "Usuario no encontrado"}
+        
+        # Buscar los directorios en la estructura del usuario
+        directorios = usuario_encontrado["root"]["directories"]
+        for nombre_directorio in lista_directorios:
+            directorio_encontrado = None
+            for directorio in directorios:
+                if directorio["name"] == nombre_directorio:
+                    directorio_encontrado = directorio
+                    directorios = directorio["directories"]
+                    files = directorio["files"]
+                    break
+
+            if directorio_encontrado is None:
+                return {"error": "Directorio no encontrado "+nombre_directorio}
+            
+        # Buscar el archivo en el último directorio
+        archivos = files
+        archivo_encontrado = None
+        for archivo in archivos:
+            if archivo["name"] == name:
+                archivo_encontrado = archivo
+                break
+
+        if archivo_encontrado is None:
+            return {"error": "Archivo no encontrado"}
+
+
+        archivo["compartido"] = True
+        
+        with open(self.BD_PATH, 'w') as file:
+            json.dump(data, file, indent=4)
+
+        #buscar en usuario Destino
+        usuarios = data["users"]
+        usuario_encontrado = None
+        for usuario in usuarios:
+            if usuario["username"] == userDestino:
+                usuario_encontrado = usuario
+                break
+
+        if usuario_encontrado is None:
+            return {"error": "Usuario Destino invalido"}
+        
+        result = bd.addFile(bd.getUser(userDestino), archivo, "drive")
+        if "error" in result:
+            archivo["compartido"] = False
+            with open(self.BD_PATH, 'w') as file:
+                json.dump(data, file, indent=4)
+            return {"error": "error"}
+        return {"info": "Compartido con exito"}
+    
+    def compartirDirectorio (self, username: str, path: str, name: str, userDestino: str) -> dict:
+        listaDirectorio = path.split('/')
+        lista_directorios = listaDirectorio.copy()
+
+        # Cargar el JSON en un diccionario
+        with open(self.BD_PATH) as file:
+            data = json.load(file)
+
+        # Buscar el usuario por el nombre de usuario
+        usuarios = data["users"]
+        usuario_encontrado = None
+        for usuario in usuarios:
+            if usuario["username"] == username:
+                usuario_encontrado = usuario
+                break
+
+        if usuario_encontrado is None:
+            return {"error": "Usuario no encontrado"}
+        
+        # Buscar los directorios en la estructura del usuario
+        directorios = usuario_encontrado["root"]["directories"]
+        for nombre_directorio in lista_directorios:
+            directorio_encontrado = None
+            for directorio in directorios:
+                if directorio["name"] == nombre_directorio:
+                    directorio_encontrado = directorio
+                    directorios = directorio["directories"]
+                   
+                    break
+
+            if directorio_encontrado is None:
+                return {"error": "Directorio no encontrado "+nombre_directorio}
+            
+        # Buscar el archivo en el último directorio
+        print(directorios)
+        archivos = directorios
+        archivo_encontrado = None
+        for archivo in archivos:
+            print (archivo["name"]+" "+name)
+            if archivo["name"] == name:
+                archivo_encontrado = archivo
+                break
+
+        if archivo_encontrado is None:
+            return {"error": "Directorio no encontrado"}
+
+        
+        with open(self.BD_PATH, 'w') as file:
+            json.dump(data, file, indent=4)
+
+        #buscar en usuario Destino
+        usuarios = data["users"]
+        usuario_encontrado = None
+        for usuario in usuarios:
+            if usuario["username"] == userDestino:
+                usuario_encontrado = usuario
+                break
+
+        if usuario_encontrado is None:
+            return {"error": "Usuario Destino invalido"}
+        
+        result = bd.addDirectory(bd.getUser(userDestino), archivo, "drive")
+
+        if "error" in result:
+            archivo["compartido"] = False
+            with open(self.BD_PATH, 'w') as file:
+                json.dump(data, file, indent=4)
+            return {"error": result["error"]}
+        return {"info": "Compartido con exito"}
+    
     def isDefaultDirectory(self, name:str)->bool:
         return name in self.DEFAULTS_DIRECTORIES
+
+    
+        
+    def replace_file_info(json_data, file_id, new_info):
+        print("entra ")
+        for user in json_data["users"]:
+            root = user["root"]
+            stack = [root]
+
+            while stack:
+                current_dir = stack.pop()
+                stack.extend(current_dir["directories"])
+
+                for file in current_dir["files"]:
+                    print(file["id"] + " , " + file_id)
+                    if file["id"] == file_id:
+                        
+                        file.update(new_info)
+
+        return json_data
+
+    def copyVV (self, username:str, originalPath, destPath):
+        userdata: dict = self.getUser(username)
+        if "error" in userdata:
+            return userdata
+        splitOriginalpath = originalPath.split('/')
+        if self.isFile(splitOriginalpath[-1]):
+            #Copiar archivo
+            directorypath:str = '/'.join(splitOriginalpath[:-1])
+            fileData: dict = self.__searchFileSinParseo(username, directorypath, splitOriginalpath[-1])
+            return self.addFile(userdata, fileData, destPath)
+            
+        else:
+            #Copiar directorio
+            directoryInfo:dict = self.__searchDirectory(userdata, originalPath)
+            if "error" in directoryInfo:
+                return directoryInfo
+            #destDirectoryInfo:dict = self.__searchDirectory(userdata, destPath)
+            
+            return self.addDirectory(userdata, directoryInfo, destPath)
+        
+    def isFile(self, path:str)->bool:
+        return path.find('.txt') != -1       
+    def __searchFileSinParseo(self, username:str, path: str, name: str) -> dict:
+        listaDirectorio = path.split('/')
+        lista_directorios = listaDirectorio.copy()
+
+        # Cargar el JSON en un diccionario
+        with open(self.BD_PATH) as file:
+            data = json.load(file)
+
+        # Buscar el usuario por el nombre de usuario
+        usuarios = data["users"]
+        usuario_encontrado = None
+        for usuario in usuarios:
+            if usuario["username"] == username:
+                usuario_encontrado = usuario
+                break
+
+        if usuario_encontrado is None:
+            return {"error": "Usuario no encontrado"}
+        
+        # Buscar los directorios en la estructura del usuario
+        directorios = usuario_encontrado["root"]["directories"]
+        for nombre_directorio in lista_directorios:
+            directorio_encontrado = None
+            for directorio in directorios:
+                if directorio["name"] == nombre_directorio:
+                    directorio_encontrado = directorio
+                    directorios = directorio["directories"]
+                    files = directorio["files"]
+                    break
+
+            if directorio_encontrado is None:
+                return {"error": "Directorio no encontrado "+nombre_directorio}
+            
+        # Buscar el archivo en el último directorio
+        archivos = files
+        archivo_encontrado = None
+        for archivo in archivos:
+            if archivo["name"] == name:
+                archivo_encontrado = archivo
+                break
+
+        if archivo_encontrado is None:
+            return {"error": "Archivo no encontrado"}
+        return archivo_encontrado
+
 # bd = BD()
 bd: FileManager = FileManager()
-print(bd.createUser("Panfilo"))
-#print(bd.getUser("test"))
-#print(bd.addFile(bd.getUser("Valeria"), bd.createFile("Filetest", r"c:\Users\Esteb\Documents\ProyectoDriveTest"), "drive"))
+
+
+#print(bd.copyVV("Prueba", "personal/Hola.txt", "personal/Anidado1/Anidado1.1/DirEsteban"))
+
+#print (bd.searchFile("Prueba", "personal/Anidado1","esoooo.txt"))
+#print(bd.createUser("Prueba",100))
+#print(bd.addFile(bd.getUser("Prueba"), bd.createFile("Filetest", "Hola, esto es una prueba"), "personal"))
+#print(bd.getUser("Prueba"))
 #print(bd.addFile(bd.getUser("Valeria"), bd.createFile("Filetest", r"c:\Users\Esteb\Documents\ProyectoDriveTest"), "personal/carpetaprueba"))
 
 # print(bd.getUser("test"))

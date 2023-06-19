@@ -1,9 +1,11 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_socketio import SocketIO, send
+from views import views
 
 
 app = Flask(__name__)
 app.config['SECRET_KEY']= 'secret'
+app.register_blueprint(views)
 socketio = SocketIO(app)
 
 @app.route('/', methods=['GET', 'POST'])

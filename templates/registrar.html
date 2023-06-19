@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Iniciar sesión</title>
+  <title>Registrar cuenta</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
   <link rel="stylesheet" href="../static/app.css">
@@ -14,13 +14,11 @@
     <div class="alert alert-danger" role="alert">{{error}}</div>
   {% endif %}
   <div class="panel">
-    <h2>Iniciar sesión</h2>
-    <form action="/iniciarSesion" method="POST">
-      <input type="text" name="username" data-dismiss="alert"placeholder="username" required><br>
-      <input  class="btn btn-success"  type="submit" value="Log in">
-    </form>
-    <form action="/getRegistro" method="GET">
-      <input class="btn btn-primary" type="submit" value="Sign up">
+    <h2>Registrar cuenta</h2>
+    <form action="/crearCuenta" method="POST">
+      <input type="text" name="username" data-dismiss="alert"placeholder="username" required><br><br>
+      <input type="number" name="tamanio" data-dismiss="alert"placeholder="Tamaño del Drive" required><br>
+      <input  class="btn btn-success"  type="submit" value="Crear">
     </form>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>

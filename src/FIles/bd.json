@@ -1,7 +1,7 @@
 {
     "users": [
         {
-            "username": "Valeria",
+            "username": "Prueba2",
             "root": {
                 "name": "root",
                 "directories": [
@@ -12,37 +12,317 @@
                     },
                     {
                         "name": "drive",
-                        "directories": [],
-                        "files": [    
+                        "directories": [
                             {
-                                "name": "prueba1.txt",
-                                "absolutePath": "c:\\Users\\Esteb\\Documents\\ProyectoDriveTest\\prueba1.txt"
+                                "name": "Anidado1",
+                                "directories": [
+                                    {
+                                        "name": "Anidado1.1",
+                                        "directories": [
+                                            {
+                                                "name": "DirEsteban",
+                                                "directories": [],
+                                                "files": []
+                                            }
+                                        ],
+                                        "files": [
+                                            {
+                                                "id": 10,
+                                                "name": "AnidadoPrueba.txt",
+                                                "content": "jejeje",
+                                                "size": 6,
+                                                "fechaCreacion": "2023-06-17 22:11:54",
+                                                "fechaModificacion": "2023-06-18 21:23:04",
+                                                "compartido": false
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "Anidado1.2",
+                                        "directories": [
+                                            {
+                                                "name": "utimojiji",
+                                                "directories": [],
+                                                "files": []
+                                            }
+                                        ],
+                                        "files": []
+                                    },
+                                    {
+                                        "name": "PruebaPagina",
+                                        "directories": [],
+                                        "files": []
+                                    },
+                                    {
+                                        "name": "directorioNuevo",
+                                        "directories": [],
+                                        "files": []
+                                    }
+                                ],
+                                "files": [
+                                    {
+                                        "id": 4,
+                                        "name": "aja.c",
+                                        "content": "de nuevo modificasao",
+                                        "size": 20,
+                                        "fechaCreacion": "2023-06-16 17:31:33",
+                                        "fechaModificacion": "2023-06-18 12:34:27",
+                                        "compartido": false
+                                    },
+                                    {
+                                        "id": 5,
+                                        "name": "aja.c",
+                                        "content": "asdasd",
+                                        "size": 6,
+                                        "fechaCreacion": "2023-06-16 17:32:56",
+                                        "fechaModificacion": "2023-06-16 17:32:56",
+                                        "compartido": false
+                                    }
+                                ]
                             }
-                        
+                        ],
+                        "files": [
+                            {
+                                "id": 10,
+                                "name": "AnidadoPrueba.txt",
+                                "content": "biabsiasdiasnd",
+                                "size": 14,
+                                "fechaCreacion": "2023-06-17 22:11:54",
+                                "fechaModificacion": "2023-06-17 22:11:54",
+                                "compartido": true
+                            }
                         ]
                     }
                 ],
                 "files": []
-            }
+            },
+            "sizeDrive": "100"
         },
         {
-            "username": "Panfilo",
+            "username": "Prueba",
             "root": {
                 "name": "root",
                 "directories": [
                     {
                         "name": "personal",
-                        "directories": [],
-                        "files": []
+                        "directories": [
+                            {
+                                "name": "Anidado1",
+                                "directories": [
+                                    {
+                                        "name": "Anidado1.1",
+                                        "directories": [
+                                            {
+                                                "name": "DirEsteban",
+                                                "directories": [],
+                                                "files": [
+                                                    {
+                                                        "id": 2,
+                                                        "name": "Hola.txt",
+                                                        "content": "primera prueba desde la pag",
+                                                        "size": 27,
+                                                        "fechaCreacion": "2023-06-16 17:29:41",
+                                                        "fechaModificacion": "2023-06-16 17:29:41",
+                                                        "compartido": false
+                                                    }
+                                                ]
+                                            }
+                                        ],
+                                        "files": [
+                                            {
+                                                "id": 10,
+                                                "name": "AnidadoPrueba.txt",
+                                                "content": "biabsiasdiasnd",
+                                                "size": 14,
+                                                "fechaCreacion": "2023-06-17 22:11:54",
+                                                "fechaModificacion": "2023-06-17 22:11:54",
+                                                "compartido": false
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "Anidado1.2",
+                                        "directories": [
+                                            {
+                                                "name": "utimojiji",
+                                                "directories": [],
+                                                "files": []
+                                            }
+                                        ],
+                                        "files": []
+                                    },
+                                    {
+                                        "name": "PruebaPagina",
+                                        "directories": [],
+                                        "files": []
+                                    },
+                                    {
+                                        "name": "directorioNuevo",
+                                        "directories": [],
+                                        "files": []
+                                    }
+                                ],
+                                "files": [
+                                    {
+                                        "id": 4,
+                                        "name": "aja.c",
+                                        "content": "de nuevo modificasao",
+                                        "size": 20,
+                                        "fechaCreacion": "2023-06-16 17:31:33",
+                                        "fechaModificacion": "2023-06-18 12:34:27",
+                                        "compartido": false
+                                    },
+                                    {
+                                        "id": 5,
+                                        "name": "aja.c",
+                                        "content": "asdasd",
+                                        "size": 6,
+                                        "fechaCreacion": "2023-06-16 17:32:56",
+                                        "fechaModificacion": "2023-06-16 17:32:56",
+                                        "compartido": false
+                                    }
+                                ],
+                                "compartido": false
+                            },
+                            {
+                                "name": "Anidado2",
+                                "directories": [],
+                                "files": []
+                            },
+                            {
+                                "name": "PruebaPagina",
+                                "directories": [],
+                                "files": []
+                            }
+                        ],
+                        "files": [
+                            {
+                                "id": 2,
+                                "name": "Hola.txt",
+                                "content": "primera prueba desde la pag",
+                                "size": 27,
+                                "fechaCreacion": "2023-06-16 17:29:41",
+                                "fechaModificacion": "2023-06-16 17:29:41",
+                                "compartido": false
+                            },
+                            {
+                                "id": 3,
+                                "name": "Hola.txt",
+                                "content": "primera prueba desde la pag",
+                                "size": 27,
+                                "fechaCreacion": "2023-06-16 17:30:07",
+                                "fechaModificacion": "2023-06-16 17:30:07",
+                                "compartido": false
+                            },
+                            {
+                                "id": 11,
+                                "name": "nuevoCompartido.txt",
+                                "content": "otra veess",
+                                "size": 10,
+                                "fechaCreacion": "2023-06-18 21:24:26",
+                                "fechaModificacion": "2023-06-18 21:28:25",
+                                "compartido": true
+                            }
+                        ]
                     },
                     {
                         "name": "drive",
-                        "directories": [],
-                        "files": []
+                        "directories": [
+                            {
+                                "name": "Anidado1",
+                                "directories": [
+                                    {
+                                        "name": "Anidado1.1",
+                                        "directories": [
+                                            {
+                                                "name": "DirEsteban",
+                                                "directories": [],
+                                                "files": []
+                                            }
+                                        ],
+                                        "files": [
+                                            {
+                                                "id": 10,
+                                                "name": "AnidadoPrueba.txt",
+                                                "content": "biabsiasdiasnd",
+                                                "size": 14,
+                                                "fechaCreacion": "2023-06-17 22:11:54",
+                                                "fechaModificacion": "2023-06-17 22:11:54",
+                                                "compartido": false
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "Anidado1.2",
+                                        "directories": [
+                                            {
+                                                "name": "utimojiji",
+                                                "directories": [],
+                                                "files": []
+                                            }
+                                        ],
+                                        "files": []
+                                    },
+                                    {
+                                        "name": "PruebaPagina",
+                                        "directories": [],
+                                        "files": []
+                                    },
+                                    {
+                                        "name": "directorioNuevo",
+                                        "directories": [],
+                                        "files": []
+                                    }
+                                ],
+                                "files": [
+                                    {
+                                        "id": 4,
+                                        "name": "aja.c",
+                                        "content": "de nuevo modificasao",
+                                        "size": 20,
+                                        "fechaCreacion": "2023-06-16 17:31:33",
+                                        "fechaModificacion": "2023-06-18 12:34:27",
+                                        "compartido": false
+                                    },
+                                    {
+                                        "id": 5,
+                                        "name": "aja.c",
+                                        "content": "asdasd",
+                                        "size": 6,
+                                        "fechaCreacion": "2023-06-16 17:32:56",
+                                        "fechaModificacion": "2023-06-16 17:32:56",
+                                        "compartido": false
+                                    }
+                                ],
+                                "compartido": false
+                            }
+                        ],
+                        "files": [
+                            {
+                                "id": 10,
+                                "name": "AnidadoPrueba.txt",
+                                "content": "biabsiasdiasnd",
+                                "size": 14,
+                                "fechaCreacion": "2023-06-17 22:11:54",
+                                "fechaModificacion": "2023-06-17 22:11:54",
+                                "compartido": true
+                            },
+                            {
+                                "id": 11,
+                                "name": "nuevoCompartido.txt",
+                                "content": "prueba",
+                                "size": 6,
+                                "fechaCreacion": "2023-06-18 21:24:26",
+                                "fechaModificacion": "2023-06-18 21:24:26",
+                                "compartido": true
+                            }
+                        ]
+
                     }
                 ],
                 "files": []
             }
         }
-    ]
+    ],
+    "id_counter": 11
 }
