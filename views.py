@@ -232,8 +232,37 @@ def eliminarDirectorio():
         return render_template('drive.html', drive = arbol, jsonResultado = jsonResultado,stringDirectorio = stringDirectorio, error = "Error: no existe el archivo en el directorio actual", usuario = nombreUsuario, infoArchivo = ""   )
     else:
         return render_template('drive.html', drive = arbol, jsonResultado = jsonResultado, stringDirectorio = stringDirectorio, usuario = nombreUsuario, infoArchivo = "", error = "Eliminado con exito" )
- 
-
+"""
+Funciones del copy
+"""
+@views.route("/download", methods = ['POST'])
+def download():
+    return "Descargar"
+@views.route("/copiar", methods = ['POST'])
+def copiar():
+    usuario = request.form['usuario']
+    jsonResultado = request.form['jsonResultado']
+    stringDirectorio = request.form['stringDirectorio']
+    bd: FileManager = FileManager()
+    rutaArchivo = request.form.get('rutaDirectorio')
+    print("Ruta del archivo: ", rutaArchivo)
+    print("stringDirectorio: ", stringDirectorio)
+    return "Copiar"
+@views.route("/load", methods=['POST'])
+def load():
+    usuario = request.form['usuario']
+    jsonResultado = request.form['jsonResultado']
+    stringDirectorio = request.form['stringDirectorio']
+    rutaArchivo = request.form.get('rutaArchivo')
+    
+    # Realizar acciones con los datos aquí
+    # Por ejemplo, guardar la ruta del archivo en el servidor
+    print("Ruta del archivo:", rutaArchivo)
+    
+    return "load"
+"""
+Funciones del copy
+"""
 def generar_arbol(json, nivel=0):
     arbol = ''
     for directorio in json['directories']:
